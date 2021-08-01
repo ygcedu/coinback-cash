@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import React from 'react';
 // 使用 svg loader 后，x 变为一个对象而不是文件路径
-import x from 'icons/money.svg';
+import x from 'icons/money.svg'; // svgo-loader => svg-sprite-loader
+import y from 'icons/labels.svg';
 
-console.log(x);
+console.log(x, y);// 此时不能删除，为了在页面中生成 svg + symbol 标签
 
 const NavWrapper = styled.nav`
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -26,6 +27,9 @@ const Nav = () => {
     <NavWrapper>
       <ul>
         <li>
+          <svg fill="red" className="icon">
+            <use xlinkHref="#money"/>
+          </svg>
           <Link to="/tags">标签</Link>
         </li>
         <li>
