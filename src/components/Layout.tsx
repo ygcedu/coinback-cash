@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  border: 1px solid red;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
