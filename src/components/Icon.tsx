@@ -1,8 +1,7 @@
 import React from 'react';
-// 使用 svg loader 后，x 变为一个对象而不是文件路径
-require('icons/money.svg');// TreeShaking 不适用于 require，此处生效
-require('icons/labels.svg');
-require('icons/statistics.svg');
+
+let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
+try {importAll(require.context('icons', true, /\.svg$/));} catch (error) {console.log(error);}
 
 type Props = {
   name: string

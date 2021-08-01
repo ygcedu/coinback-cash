@@ -102,6 +102,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.11",
+    "@types/webpack-env": "^1.16.2",
     "svg-sprite-loader": "^4.2.2",
     "svgo-loader": "^2.2.1"
   },
