@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 
-const _TagsSection = styled.section`
+const Wrapper = styled.section`
   background: #FFFFFF;
   padding: 12px 16px;
   flex-grow: 1;
@@ -36,7 +36,7 @@ const _TagsSection = styled.section`
 // FC = FunctionComponent
 const TagsSection: React.FC = () => {
   return (
-    <_TagsSection>
+    <Wrapper>
       <ol>
         <li>衣</li>
         <li>食</li>
@@ -44,7 +44,7 @@ const TagsSection: React.FC = () => {
         <li>行</li>
       </ol>
       <button>新增标签</button>
-    </_TagsSection>
+    </Wrapper>
   );
 };
 
