@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 const Wrapper = styled.section`
   background: #f5f5f5;
@@ -28,15 +28,25 @@ const Wrapper = styled.section`
 
 const NoteSection: React.FC = () => {
   const [note, setNote] = useState('');
-  console.log(note);
-  
+  const refInput = useRef<HTMLInputElement>(null);
+
+  // 非受控组件设值
+  const onBlur = () => {
+    if (refInput.current !== null) {
+      console.log(refInput.current.value);
+      setNote(refInput.current.value);
+      // 类似于Vue的 <input v-model.lazy="value"/>;
+    }
+  };
+
   return (
     <Wrapper>
       <label>
         <span>备注</span>
         <input type="text" placeholder="在这里添加备注"
-               value={note}
-               onChange={(e) => setNote(e.target.value)}
+               ref={refInput}
+               defaultValue={note}
+               onBlur={onBlur}
         />
       </label>
     </Wrapper>
