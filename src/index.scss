@@ -48,3 +48,8 @@ button {
   display: inline-block;
 }
 
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
