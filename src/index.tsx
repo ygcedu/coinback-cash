@@ -4,8 +4,7 @@ import App from './App';
 import 'index.scss';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // fixme: 思考是否需要使用严格模式
+  <App/>,
   document.getElementById('root')
 );
