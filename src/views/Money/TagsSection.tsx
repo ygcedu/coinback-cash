@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 
 const _TagsSection = styled.section`
   background: #FFFFFF;
@@ -33,9 +34,17 @@ const _TagsSection = styled.section`
 `;
 
 // FC = FunctionComponent
-const TagsSection: React.FC = (props) => {
+const TagsSection: React.FC = () => {
   return (
-    <_TagsSection>{props.children}</_TagsSection>
+    <_TagsSection>
+      <ol>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+      </ol>
+      <button>新增标签</button>
+    </_TagsSection>
   );
 };
 
