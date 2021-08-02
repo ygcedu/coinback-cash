@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TagsSection = styled.section`
+const _TagsSection = styled.section`
   background: #FFFFFF;
   padding: 12px 16px;
   flex-grow: 1;
@@ -31,5 +31,12 @@ const TagsSection = styled.section`
     margin-top: 8px;
   }
 `;
+
+// FC = FunctionComponent
+const TagsSection: React.FC = (props) => {
+  return (
+    <_TagsSection>{props.children}</_TagsSection>
+  );
+};
 
 export {TagsSection};
