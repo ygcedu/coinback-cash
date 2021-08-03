@@ -29,16 +29,17 @@ const Wrapper = styled.section`
 `;
 
 const CategorySection: React.FC = () => {
+  const categoryMap = {'-': '支出', '+': '收入'};
+  const [categoryList] = useState<('-' | '+')[]>(['-', '+']);
   const [category, setCategory] = useState('-');// + 表示收入，-表示支出
   return (
     <Wrapper>
       <ul>
-        <li className={category === '-' ? 'selected' : ''}
-            onClick={() => setCategory('-')}>支出
-        </li>
-        <li className={category === '+' ? 'selected' : ''}
-            onClick={() => setCategory('+')}>收入
-        </li>
+        {categoryList.map(c =>
+          <li className={category === '-' ? 'selected' : ''}
+              onClick={() => setCategory(c)}>{categoryMap[c]}
+          </li>
+        )}
       </ul>
     </Wrapper>
   );
