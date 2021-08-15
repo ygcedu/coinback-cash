@@ -5,7 +5,7 @@ const Label = styled.label`
   display: flex;
   align-items: center;
 
-  > .x {
+  > span {
     margin-right: 16px;
     // 不换行
     white-space: nowrap;
@@ -14,7 +14,7 @@ const Label = styled.label`
   > input {
     display: block;
     width: 100%;
-    height: 72px;
+    height: 44px;
     background: none;
     border: none;
   }
