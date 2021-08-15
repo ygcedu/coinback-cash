@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import {useTags} from 'useTags';
-import {Id} from '../../lib/Id';
+import {createId} from 'lib/createId';
 
 const Wrapper = styled.section`
   background: #FFFFFF;
@@ -51,7 +51,7 @@ const TagsSection: React.FC<Props> = (props) => {
   const onAddTag = () => {
     const tagName = window.prompt('新标签的名称为');
     if (tagName !== null) {
-      setTags([...tags, {id: (new Id).value, name: tagName}]);
+      setTags([...tags, {id: createId(), name: tagName}]);
     }
   };
 
