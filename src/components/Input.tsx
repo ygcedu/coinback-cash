@@ -25,14 +25,12 @@ type Props = {
 
 const Input: React.FC<Props> = (props) => {
 
-  const {label, ...rest} = props;
+  const {label, children, ...rest} = props;
   return (
     <Label>
       <span>{props.label}</span>
-      <input type={props.type}
-             placeholder={props.placeholder}
-             defaultValue={props.defaultValue}
-             onBlur={props.onBlur}/>
+      {/*将 input 全部原生属性自动添加进来*/}
+      <input {...rest}/>
     </Label>
   );
 };
