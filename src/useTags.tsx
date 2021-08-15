@@ -1,5 +1,6 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {createId} from 'lib/createId';
+import {useUpdate} from './hooks/useUpdate';
 
 const defaultTags = [
   {id: createId(), name: '衣'},
@@ -17,22 +18,11 @@ const useTags = () => {
     console.log('get item');
   }, []);// 第一次渲染
 
-  const count = useRef(0);
-
-  useEffect(() => {
-    count.current += 1;
-    console.log('count: ' + count.current);
-  });
-
-  // 每次数据变化都会触发
-  useEffect(() => {
-    console.log('tags changed');
-    if (count.current > 1) {
-      console.log('set item');
-      console.log(JSON.stringify(tags));
-      window.localStorage.setItem('tags', JSON.stringify(tags));
-    }
-  }, [tags]);// 不可变数据
+  useUpdate(() => {
+    console.log('set item');
+    console.log(JSON.stringify(tags));
+    window.localStorage.setItem('tags', JSON.stringify(tags));
+  }, [tags]);
 
   const findTag = (id: number) => tags.filter(tag => tag.id === id)[0];
   const findTagIndex = (id: number) => {
