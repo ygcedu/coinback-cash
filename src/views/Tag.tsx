@@ -7,7 +7,7 @@ import {Input} from 'components/Input';
 import {Center} from 'components/Center';
 import {Space} from 'components/Space';
 import {useTags} from '../useTags';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 type Params = {
   id: string
@@ -54,10 +54,16 @@ const Tag: React.FC = () => {
     </div>
   );
 
+  const history = useHistory();
+  // fixme: 用户直接输入 url 访问页面，则没法回退
+  const onClickBack = () => {
+    history.goBack();
+  };
+
   return (
     <Layout>
       <Topbar>
-        <Icon name="left"/>
+        <Icon name="left" onClick={onClickBack}/>
         <span>编辑标签</span>
         <span/>
       </Topbar>
