@@ -3,13 +3,13 @@ import {useParams} from 'react-router-dom';
 import {useTags} from '../useTags';
 
 type Params = {
-  fuck: string
+  id: string
 }
 
 const Tag: React.FC = () => {
-  const {tags} = useTags();
-  let {fuck} = useParams<Params>();
-  const tag = tags.filter(tag => tag.id === parseInt(fuck))[0];
+  const {findTag} = useTags();
+  let {id} = useParams<Params>();
+  const tag = findTag(parseInt(id));
   return (
     <div>{tag.name}</div>
   );
