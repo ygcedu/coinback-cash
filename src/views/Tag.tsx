@@ -29,18 +29,12 @@ const InputWrapper = styled.div`
 `;
 
 const Tag: React.FC = () => {
-  const {findTag, updateTag} = useTags();
+  const {findTag, updateTag, deleteTag} = useTags();
   // id 重命名为 idString，隐式强调 id 的类型是 string 类型
   let {id: idString} = useParams<Params>();
   const tag = findTag(parseInt(idString));
-
-  return (
-    <Layout>
-      <Topbar>
-        <Icon name="left"/>
-        <span>编辑标签</span>
-        <span/>
-      </Topbar>
+  const tagContent = (tag: { id: number, name: string }) => (
+    <div>
       <InputWrapper>
         <Input label="标签名" type="text" placeholder="标签名" value={tag.name}
                onChange={(e) => {
@@ -52,8 +46,22 @@ const Tag: React.FC = () => {
         <Space/>
         <Space/>
         <Space/>
-        <Button>删除标签</Button>
+        <Button onClick={() => {
+          deleteTag(tag.id);
+          // window.history.back();
+        }}>删除标签</Button>
       </Center>
+    </div>
+  );
+
+  return (
+    <Layout>
+      <Topbar>
+        <Icon name="left"/>
+        <span>编辑标签</span>
+        <span/>
+      </Topbar>
+      {tag ? tagContent(tag) : <Center>tag 不存在</Center>}
     </Layout>
   );
 };
