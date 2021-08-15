@@ -11,11 +11,33 @@ const TagList = styled.ol`
   > li {
     border-bottom: 1px solid #d5d5d9;
     line-height: 20px;
-    padding: 12px 16px;
+    padding: 12px 16px 12px 0;
+    margin-right: 16px;
     display: flex;
     justify-content: space-between; // 左右分开
     align-items: center; // 上下居中
   }
+`;
+
+const Button = styled.button`
+  font-size: 18px;
+  border: none;
+  padding: 8px 12px;
+  background: #767676;
+  border-radius: 4px;
+  color: white;
+`;
+
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+// 按钮上方间隙
+const Space = styled.div`
+  height: 16px;
 `;
 
 function Tags() {
@@ -31,6 +53,12 @@ function Tags() {
           </li>
         )}
       </TagList>
+      <Center>
+        <Space/>
+        <Space/>
+        <Space/>
+        <Button>新增标签</Button>
+      </Center>
     </Layout>
   );
 }
