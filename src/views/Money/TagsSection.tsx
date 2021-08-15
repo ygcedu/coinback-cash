@@ -46,6 +46,7 @@ type Props = {
 // FC = FunctionComponent
 const TagsSection: React.FC<Props> = (props) => {
   const {tags, addTag} = useTags();
+  console.log('use tags');
   const selectedTagIds = props.value;
 
   const onToggleTag = (tagId: number) => {

@@ -2,21 +2,23 @@ import {useEffect, useState} from 'react';
 import {createId} from 'lib/createId';
 import {useUpdate} from './hooks/useUpdate';
 
-const defaultTags = [
-  {id: createId(), name: '衣'},
-  {id: createId(), name: '食'},
-  {id: createId(), name: '住'},
-  {id: createId(), name: '行'}
-];
-
 const useTags = () => {
   const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
     console.log('after mount');
-    setTags(JSON.parse(window.localStorage.getItem('tags') || '[]'));
+    let localTags = JSON.parse(window.localStorage.getItem('tags') || '[]');
+    if (localTags.length === 0) {
+      localTags = [
+        {id: createId(), name: '衣'},
+        {id: createId(), name: '食'},
+        {id: createId(), name: '住'},
+        {id: createId(), name: '行'}
+      ];
+    }
+    setTags(localTags);
     console.log('get item');
-  }, []);// 第一次渲染
+  }, []);// 组件挂载时执行
 
   useUpdate(() => {
     console.log('set item');
@@ -45,7 +47,7 @@ const useTags = () => {
   };
   const addTag = () => {
     const tagName = window.prompt('新标签的名称为');
-    if (tagName !== null) {
+    if (tagName !== null && tagName !== '') {
       setTags([...tags, {id: createId(), name: tagName}]);
     }
   };
