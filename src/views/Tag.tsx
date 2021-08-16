@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {Input} from 'components/Input';
 import {Center} from 'components/Center';
 import {Space} from 'components/Space';
-import {useTags} from '../useTags';
+import {useTags} from '../hooks/useTags';
 import {useHistory, useParams} from 'react-router-dom';
 
 type Params = {
