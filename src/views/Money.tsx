@@ -27,7 +27,6 @@ function Money() {
   // Partial<Selected>
 
   const {records, addRecord} = useRecords();
-  console.log({records});
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({...selected, ...obj});
   };

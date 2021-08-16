@@ -6,7 +6,6 @@ const useTags = () => {
   const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
-    console.log('after mount');
     let localTags = JSON.parse(window.localStorage.getItem('tags') || '[]');
     if (localTags.length === 0) {
       localTags = [
@@ -17,12 +16,9 @@ const useTags = () => {
       ];
     }
     setTags(localTags);
-    console.log('get item');
   }, []);// 组件挂载时执行
 
   useUpdate(() => {
-    console.log('set item');
-    console.log(JSON.stringify(tags));
     window.localStorage.setItem('tags', JSON.stringify(tags));
   }, [tags]);
 

@@ -18,11 +18,10 @@ type RecordItem = {
   category: '+' | '-'
   amount: number
   createdAt: string // ISO 8601
-  updatedAt: string
 }
 
 // 忽略 RecordItem 中的 createdAt 属性
-type NewRecordItem = Omit<RecordItem, 'createdAt' | 'updatedAt'>
+type NewRecordItem = Omit<RecordItem, 'createdAt'>
 
 export const useRecords = () => {
   const [records, setRecords] = useState<RecordItem[]>([]);

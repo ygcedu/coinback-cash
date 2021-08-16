@@ -5,12 +5,10 @@ export const useUpdate = (fn: () => void, deps: any[]) => {
 
   useEffect(() => {
     count.current += 1;
-    console.log('count: ' + count.current);
   });
 
   // 每次数据变化都会触发
   useEffect(() => {
-    console.log('tags changed');
     if (count.current > 1) {
       fn();
     }
