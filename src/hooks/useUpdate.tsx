@@ -12,5 +12,6 @@ export const useUpdate = (fn: () => void, deps: any[]) => {
     if (count.current > 1) {
       fn();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);// 不可变数据
 };

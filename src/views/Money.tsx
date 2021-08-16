@@ -23,10 +23,8 @@ const defaultFormData = {
 
 function Money() {
   const [selected, setSelected] = useState(defaultFormData);
-  // type Selected = typeof selected;
-  // Partial<Selected>
 
-  const {records, addRecord} = useRecords();
+  const {addRecord} = useRecords();
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({...selected, ...obj});
   };
