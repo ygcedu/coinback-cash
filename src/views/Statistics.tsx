@@ -54,20 +54,18 @@ function Statistics() {
     return 0;
   });
 
-  console.log(array);
-
   return (
     <Layout>
       <CategoryWrapper>
         <CategorySection value={category}
                          onChange={value => setCategory(value)}/>
       </CategoryWrapper>
-      {array.map(([date, records]) =>
-        <div>
+      {array.map(([date, records], i) =>
+        <div key={i}>
           <Header>{date}</Header>
           <div>
-            {records.map(r => {
-              return <Item>
+            {records.map((r, index) => {
+              return <Item key={index}>
                 <div className="tags oneLine">
                   {r.tagIds
                     .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
