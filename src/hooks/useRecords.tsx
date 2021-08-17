@@ -12,7 +12,7 @@ import {useUpdate} from './useUpdate';
 //   createdAt: string // ISO 8601
 // }
 
-type RecordItem = {
+export type RecordItem = {
   tagIds: number[]
   note: string
   category: '+' | '-'
