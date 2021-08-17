@@ -6,13 +6,18 @@ const Wrapper = styled.section`
   background: #FFFFFF;
   padding: 12px 16px;
   flex-grow: 1;
+  flex-shrink: 1;
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  //justify-content: flex-end;
   align-items: flex-start;
+
+  border: 1px solid red;
 
   > ol {
     margin: 0 -12px;
+    border: 1px solid green;
 
     > li {
       background: #D9D9D9;
@@ -62,6 +67,7 @@ const TagsSection: React.FC<Props> = (props) => {
 
   return (
     <Wrapper>
+      <button onClick={addTag}>新增标签</button>
       <ol>
         {tags.map(tag =>
           <li key={tag.id} onClick={() => onToggleTag(tag.id)}
@@ -69,7 +75,6 @@ const TagsSection: React.FC<Props> = (props) => {
           >{tag.name}</li>
         )}
       </ol>
-      <button onClick={addTag}>新增标签</button>
     </Wrapper>
   );
 };
