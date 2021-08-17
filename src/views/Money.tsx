@@ -41,7 +41,7 @@ function Money() {
   };
 
   return (
-    <MyLayout>
+    <MyLayout scrollTop={9999}>
       {JSON.stringify(selected)}
       <hr/>
       <TagsSection value={selected.tagIds}
