@@ -24,7 +24,6 @@ const Layout: React.FC<Props> = (props) => {
     setTimeout(() => {
       if (!mainRef.current) return;
       mainRef.current.scrollTop = props.scrollTop!;
-      console.log(props.scrollTop);
     }, 0);// 尽快执行这段代码
   }, [props.scrollTop]);
   return (

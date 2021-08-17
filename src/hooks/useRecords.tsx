@@ -45,7 +45,7 @@ export const useRecords = () => {
     }
     const record = {...newRecord, createdAt: (new Date()).toISOString()};
     setRecords([...records, record]);
-
+    return true;
   };
 
   return {records, addRecord};
