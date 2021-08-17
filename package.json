@@ -82,7 +82,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "deploy:github": "sh scripts/deploy-github.sh",
+    "deploy:gitee": "sh scripts/deploy-gitee.sh",
+    "deploy": "yarn deploy:gitee && yarn deploy:github"
   },
   "eslintConfig": {
     "extends": [

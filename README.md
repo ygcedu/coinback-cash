@@ -11,3 +11,8 @@
 
 11. 部署根目录不对谷歌搜索：create react app build path 查看解决方案：https://create-react-app.dev/docs/deployment/
 12. 修改 "homepage": "http://mywebsite.com/relativepath",
+
+
+13. 制作 deploy.sh // bash-shebang: #!/usr/bin/env bash
+14. chmod +x scripts/deploy.sh // windows 系统无效
+15. sh scripts/deploy.sh
