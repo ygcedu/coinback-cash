@@ -11,6 +11,10 @@ const Wrapper = styled.div`
 const Main = styled.div`
   flex-grow: 1; // 尽量高
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 type Props = {

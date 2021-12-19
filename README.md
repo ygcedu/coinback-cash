@@ -1,18 +1,15 @@
-1. yarn build
-2. yarn global add serve
-3. serve -s build
-4. cd build
-5. git init
-6. git status -sb
-7. git add .
-8. git commit -m 'init'
-9. git remote add origin https://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@github.com/ygcedu/coinback_react-website.git
-10. git push -u origin master -f // -f 强制覆盖远程的内容
+# 币归记账
 
-11. 部署根目录不对谷歌搜索：create react app build path 查看解决方案：https://create-react-app.dev/docs/deployment/
-12. 修改 "homepage": "http://mywebsite.com/relativepath",
+一个用 React + typescript 写的仿鲨鱼记账应用，用于本人日常开销和理财收入的记录统计。   
+预览链接：http://u1s.top/coinback-cash
 
+## 技术栈
 
-13. 制作 deploy.sh // bash-shebang: #!/usr/bin/env bash
-14. chmod +x scripts/deploy.sh // windows 系统无效
-15. sh scripts/deploy.sh
+* React + React Hooks + React Router
+* Typescript
+* ECharts.js
+* Styled Components
+
+## 后记
+
+本项目主要为了学习 React 练手使用，UI 仿照了鲨鱼笔记，如果你也在学 React/TypeScript 的话，可以 Fork 和 Star 一下哟~
