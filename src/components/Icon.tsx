@@ -1,22 +1,33 @@
 import React from 'react';
 import cs from 'classnames';
+import styled from 'styled-components';
 
-let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
-try {importAll(require.context('icons', true, /\.svg$/));} catch (error) {console.log(error);}
+const Svg = styled.svg<{ size: number }>(props => ({
+  width: props.size,
+  height: props.size,
+  fill: props.color
+}));
 
 type Props = {
   name?: string
+  color?: string
+  size?: number
 } & React.SVGAttributes<SVGElement>
 
 const Icon = (props: Props) => {
   // children, className 需要排除在外
-  const {name, children, className, ...rest} = props;
+  const {name, color, size, children, className, ...attributes} = props;
   return (
     // <svg className={`icon ${className ? className : ''}`} {...rest}>
-    <svg className={cs('icon', className)} {...rest}>
-      {props.name && <use xlinkHref={'#' + props.name}/>}
-    </svg>
+    <Svg size={size!} color={color} aria-hidden="true"
+         className={cs('icon', className)} {...attributes}>
+      {name && <use xlinkHref={'#icon-' + name}/>}
+    </Svg>
   );
+};
+
+Icon.defaultProps = {
+  size: 16,
 };
 
 export default Icon;

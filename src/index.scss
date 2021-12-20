@@ -46,7 +46,9 @@ button, input {
 .icon {
   width: 1em;
   height: 1em;
-  display: inline-block;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 
 .clearfix::after {
