@@ -9,10 +9,39 @@ const useTags = () => {
     let localTags = JSON.parse(window.localStorage.getItem('tags') || '[]');
     if (localTags.length === 0) {
       localTags = [
-        {id: createId(), name: '衣'},
-        {id: createId(), name: '食'},
-        {id: createId(), name: '住'},
-        {id: createId(), name: '行'}
+        {id: createId(), name: 'canyin'},
+        {id: createId(), name: 'gouwu'},
+        {id: createId(), name: 'riyong'},
+        {id: createId(), name: 'jiaotong'},
+        {id: createId(), name: 'shucai'},
+        {id: createId(), name: 'shuiguo'},
+        {id: createId(), name: 'lingshi'},
+        {id: createId(), name: 'yundong'},
+        {id: createId(), name: 'yule'},
+        {id: createId(), name: 'tongxun'},
+        {id: createId(), name: 'fushi'},
+        {id: createId(), name: 'meirong'},
+        {id: createId(), name: 'zhufang'},
+        {id: createId(), name: 'jujia'},
+        {id: createId(), name: 'haizi'},
+        {id: createId(), name: 'zhangbei'},
+        {id: createId(), name: 'shejiao'},
+        {id: createId(), name: 'lvxing'},
+        {id: createId(), name: 'yanjiu'},
+        {id: createId(), name: 'shuma'},
+        {id: createId(), name: 'yiliao'},
+        {id: createId(), name: 'shuji'},
+        {id: createId(), name: 'xuexi'},
+        {id: createId(), name: 'chongwu'},
+        {id: createId(), name: 'lijin'},
+        {id: createId(), name: 'liwu'},
+        {id: createId(), name: 'bangong'},
+        {id: createId(), name: 'weixiu'},
+        {id: createId(), name: 'juanzeng'},
+        {id: createId(), name: 'qinyou'},
+        {id: createId(), name: 'kuaidi'},
+        {id: createId(), name: 'youxi'},
+        {id: createId(), name: 'setting'},
       ];
     }
     setTags(localTags);

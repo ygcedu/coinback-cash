@@ -11,17 +11,21 @@ const Wrapper = styled.section`
       width: 50%;
       text-align: center;
       padding: 16px 0;
-      position: relative;
 
-      &.selected::after {
+      &.selected > span {
+        position: relative;
+      }
+
+      &.selected > span::after {
         content: '';
         display: block;
         height: 3px;
         background: #333;
         position: absolute;
-        bottom: 0;
-        width: 100%;
-        left: 0;
+        bottom: -18px;
+        width: 140%;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   }
@@ -44,7 +48,7 @@ const CategorySection: React.FC<Props> = (props) => {
         {categoryList.map(c =>
           <li key={c} className={category === c ? 'selected' : ''}
               onClick={() => props.onChange(c)}>
-            {categoryMap[c]}
+            <span>{categoryMap[c]}</span>
           </li>
         )}
       </ul>

@@ -3,7 +3,7 @@ import React, {ChangeEventHandler} from 'react';
 import {Input} from 'components/Input';
 
 const Wrapper = styled.section`
-  background: #f5f5f5;
+  background: #f3f3f3;
   padding: 14px 16px;
   font-size: 14px;
 `;

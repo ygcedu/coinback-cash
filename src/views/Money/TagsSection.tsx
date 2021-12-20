@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import {useTags} from 'hooks/useTags';
+import Icon from '../../components/Icon';
 
 const Wrapper = styled.section`
   background: #FFFFFF;
@@ -15,15 +16,16 @@ const Wrapper = styled.section`
     margin: 0 -12px;
 
     > li {
-      background: #D9D9D9;
-      border-radius: 18px;
+      background: #f5f5f5;
+      border-radius: 50%;
       display: inline-block;
-      padding: 3px 18px;
+      //padding: 3px 18px;
+      padding: 6px;
       font-size: 14px;
       margin: 8px 12px;
 
       &.selected {
-        background: #f60;
+        background: #ffda44;
       }
     }
   }
@@ -66,7 +68,9 @@ const TagsSection: React.FC<Props> = (props) => {
         {tags.map(tag =>
           <li key={tag.id} onClick={() => onToggleTag(tag.id)}
               className={getClass(tag.id)}
-          >{tag.name}</li>
+          >
+            <Icon name={tag.name} size={24}/>
+          </li>
         )}
       </ol>
       <button onClick={addTag}>新增标签</button>
