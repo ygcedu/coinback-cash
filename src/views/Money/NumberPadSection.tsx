@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Wrapper} from './NumberPadSection/Wrapper';
 import {generateOutput} from './NumberPadSection/generateOutput';
+import Icon from '../../components/Icon';
 
 type Props = {
   value: number,
@@ -24,15 +25,15 @@ const NumberPadSection: React.FC<Props> = (props) => {
     props.onChange(parseFloat(newOutput));
   };
   const onClickButtonWrapper = (e: React.MouseEvent) => {
-    const text = (e.target as HTMLButtonElement).textContent;
+    const text = (e.target as SVGUseElement | HTMLButtonElement).getAttribute('value');
     if (text === null) {return;}
-    if (text === 'OK') {
+    if (text === 'ok') {
       if (props.onOk) {
         props.onOk();
       }
       return;
     }
-    if ('0123456789.'.split('').concat(['删除', '清空']).indexOf(text) >= 0) {
+    if ('0123456789.'.split('').concat(['delete', 'clear']).indexOf(text) >= 0) {
       setOutput(generateOutput(text, output));
     }
   };
@@ -43,20 +44,22 @@ const NumberPadSection: React.FC<Props> = (props) => {
         {output}
       </div>
       <div className="pad clearfix" onClick={onClickButtonWrapper}>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>删除</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>清空</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button className="ok">OK</button>
-        <button className="zero">0</button>
-        <button className="dot">.</button>
+        <button value='1'>1</button>
+        <button value='2'>2</button>
+        <button value='3'>3</button>
+        <button value='delete'>
+          <Icon name="delete" value='delete' size={24}/>
+        </button>
+        <button value='4'>4</button>
+        <button value='5'>5</button>
+        <button value='6'>6</button>
+        <button value='clear'>清空</button>
+        <button value='7'>7</button>
+        <button value='8'>8</button>
+        <button value='9'>9</button>
+        <button value='ok' className="ok">完成</button>
+        <button value='0' className="zero">0</button>
+        <button value='.' className="dot">.</button>
       </div>
     </Wrapper>
   );

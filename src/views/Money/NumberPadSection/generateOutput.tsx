@@ -22,13 +22,13 @@ const generateOutput = (text: string, output = '0') => {
         return output;
       }
       return output + '.';
-    case '删除':
+    case 'delete':
       if (output.length === 1) {
         return '';
       } else {
         return output.slice(0, -1) || '';
       }
-    case '清空':
+    case 'clear':
       return '';
     default:
       return '';

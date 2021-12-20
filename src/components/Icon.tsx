@@ -10,6 +10,7 @@ const Svg = styled.svg<{ size: number }>(props => ({
 
 type Props = {
   name?: string
+  value?: string
   color?: string
   size?: number
 } & React.SVGAttributes<SVGElement>
