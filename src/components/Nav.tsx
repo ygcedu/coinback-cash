@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 import React from 'react';
 import Icon from './Icon';
 
@@ -7,6 +7,7 @@ const NavWrapper = styled.nav`
   background: white;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   line-height: 24px;
+  color: #606266;
 
   > ul {
     display: flex;
@@ -23,16 +24,11 @@ const NavWrapper = styled.nav`
         justify-content: center;
         align-items: center;
 
-        //.icon {
-        //  width: 24px;
-        //  height: 24px;
-        //}
-
         &.selected {
-          color: red;
+          color: #ffda44;
 
           .icon {
-            fill: red;
+            fill: #ffda44;
           }
         }
       }
@@ -41,24 +37,32 @@ const NavWrapper = styled.nav`
 `;
 
 const Nav = () => {
+  const {pathname} = useLocation();
+
   return (
     <NavWrapper>
       <ul>
         <li>
           <NavLink to="/tags" activeClassName="selected">
-            <Icon name="labels" size={24}/>
-            标签
+            {
+              pathname === '/tags' ? <Icon name="details-fill" size={24}/> :
+                <Icon name="details" size={24}/>
+            }
+            明细
           </NavLink>
         </li>
         <li>
           <NavLink to="/money" activeClassName="selected">
-            <Icon name="money" size={24}/>
+            <Icon name="add" size={24}/>
             记账
           </NavLink>
         </li>
         <li>
           <NavLink to="/statistics" activeClassName="selected">
-            <Icon name="statistics" size={24}/>
+            {
+              pathname === '/statistics' ? <Icon name="statistics-fill" size={24}/> :
+                <Icon name="statistics" size={24}/>
+            }
             统计
           </NavLink>
         </li>
