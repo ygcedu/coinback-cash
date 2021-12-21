@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   height: 100vh; // 不能使用 min-height
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `;
 
 const Main = styled.div`

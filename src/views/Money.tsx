@@ -10,6 +10,17 @@ import {useRecords} from '../hooks/useRecords';
 const MyLayout = styled(Layout)`
   display: flex;
   flex-direction: column;
+  position: relative;
+  animation: animate 0.25s ease;
+
+  @keyframes animate {
+    from {
+      bottom: -100vh;
+    }
+    to {
+      bottom: 0;
+    }
+  }
 `;
 
 type Category = ('-' | '+');

@@ -17,6 +17,7 @@ const Wrapper = styled.section`
   }
 
   > .pad {
+    border-bottom: 1px solid #ccc;
 
     > button {
       font-size: 18px;
