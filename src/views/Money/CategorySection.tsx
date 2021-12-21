@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, {useState} from 'react';
 
 const Wrapper = styled.section`
-  font-size: 24px;
+  font-size: 18px;
 
   > ul {
     display: flex;
@@ -11,6 +11,7 @@ const Wrapper = styled.section`
       width: 50%;
       //text-align: center;
       padding: 16px 0;
+      line-height: 1em;
 
       &.selected > span {
         position: relative;
@@ -21,8 +22,8 @@ const Wrapper = styled.section`
           height: 3px;
           background: #333;
           position: absolute;
-          bottom: -18px;
-          width: 3em;
+          bottom: -16px;
+          width: 2.8em;
           left: 50%;
           transform: translateX(-50%);
         }
