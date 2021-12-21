@@ -35,15 +35,6 @@ const Wrapper = styled.section`
       }
     }
   }
-
-  > button {
-    background: none;
-    border: none;
-    padding: 2px 4px;
-    border-bottom: 1px solid #333;
-    color: #666;
-    margin-top: 8px;
-  }
 `;
 
 type Props = {
@@ -66,7 +57,7 @@ const TagsSection: React.FC<Props> = (props) => {
     }
   };
 
-  const getClass = (tagId: number) => selectedTagIds.indexOf(tagId) >= 0 ? 'selected' : '';
+  const getClass = (tagId: number) => tagId === -1 || selectedTagIds.indexOf(tagId) >= 0 ? 'selected' : '';
 
   return (
     <Wrapper>
@@ -78,8 +69,11 @@ const TagsSection: React.FC<Props> = (props) => {
             <Icon name={tag.name} size={24}/>
           </li>
         )}
+        <li onClick={addTag}
+            className={getClass(-1)}>
+          <Icon name='setting' size={24}/>
+        </li>
       </ol>
-      <button onClick={addTag}>新增标签</button>
     </Wrapper>
   );
 };

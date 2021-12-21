@@ -40,8 +40,7 @@ const useTags = () => {
         {id: createId(), name: 'juanzeng'},
         {id: createId(), name: 'qinyou'},
         {id: createId(), name: 'kuaidi'},
-        {id: createId(), name: 'youxi'},
-        {id: createId(), name: 'setting'},
+        {id: createId(), name: 'youxi'}
       ];
     }
     setTags(localTags);
