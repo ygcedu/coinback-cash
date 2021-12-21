@@ -13,16 +13,22 @@ const Wrapper = styled.section`
   align-items: flex-start;
 
   > ol {
+    display: grid;
     margin: 0 -12px;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+    margin-left: auto;
+    margin-right: auto;
 
     > li {
       background: #f5f5f5;
       border-radius: 50%;
-      display: inline-block;
-      //padding: 3px 18px;
-      padding: 6px;
       font-size: 14px;
       margin: 8px 12px;
+      width: 3em;
+      height: 3em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &.selected {
         background: #ffda44;
