@@ -21,6 +21,10 @@ const defaultFormData = {
   amount: 0
 };
 
+const Wrapper = styled.div`
+  overflow: auto;
+`;
+
 const CategoryWrapper = styled.div`
   background: #ffda44;
 `;
@@ -46,13 +50,15 @@ function Money() {
         <CategorySection value={selected.category}
                          onChange={category => onChange({category})}/>
       </CategoryWrapper>
-      <TagsSection value={selected.tagIds}
-                   onChange={tagIds => onChange({tagIds})}/>
-      <NoteSection value={selected.note}
-                   onChange={note => onChange({note})}/>
-      <NumberPadSection value={selected.amount}
-                        onChange={amount => onChange({amount})}
-                        onOk={submit}/>
+      <Wrapper>
+        <TagsSection value={selected.tagIds}
+                     onChange={tagIds => onChange({tagIds})}/>
+        <NoteSection value={selected.note}
+                     onChange={note => onChange({note})}/>
+        <NumberPadSection value={selected.amount}
+                          onChange={amount => onChange({amount})}
+                          onOk={submit}/>
+      </Wrapper>
     </MyLayout>
   );
 }

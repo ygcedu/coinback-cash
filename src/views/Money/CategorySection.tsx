@@ -9,21 +9,34 @@ const Wrapper = styled.section`
 
     > li {
       width: 50%;
-      text-align: center;
+      //text-align: center;
       padding: 16px 0;
-      position: relative;
 
-      &.selected::after {
-        content: '';
-        display: block;
-        height: 3px;
-        background: #333;
-        position: absolute;
-        bottom: 0;
-        width: 3em;
-        left: 50%;
-        transform: translateX(-50%);
+      &.selected > span {
+        position: relative;
+
+        &::after {
+          content: '';
+          display: block;
+          height: 3px;
+          background: #333;
+          position: absolute;
+          bottom: -18px;
+          width: 3em;
+          left: 50%;
+          transform: translateX(-50%);
+        }
       }
+    }
+
+    > li:first-child {
+      text-align: right;
+      padding-right: 18px;
+    }
+
+    > li:nth-child(2) {
+      text-align: left;
+      padding-left: 18px;
     }
   }
 `;
@@ -45,7 +58,7 @@ const CategorySection: React.FC<Props> = (props) => {
         {categoryList.map(c =>
           <li key={c} className={category === c ? 'selected' : ''}
               onClick={() => props.onChange(c)}>
-            {categoryMap[c]}
+            <span>{categoryMap[c]}</span>
           </li>
         )}
       </ul>
