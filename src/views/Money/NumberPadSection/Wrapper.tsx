@@ -6,8 +6,8 @@ const Wrapper = styled.section`
 
   > .output {
     background: white;
-    font-size: 36px;
-    line-height: 72px;
+    font-size: 26px;
+    line-height: 48px;
     text-align: right;
     padding: 0 16px;
     border-top: 1px solid #ccc;

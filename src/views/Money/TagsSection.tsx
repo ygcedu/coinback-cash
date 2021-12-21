@@ -6,11 +6,7 @@ import Icon from '../../components/Icon';
 const Wrapper = styled.section`
   background: #FFFFFF;
   padding: 12px 16px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
+  overflow: auto;
 
   > ol {
     display: grid;
