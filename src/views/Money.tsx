@@ -29,6 +29,11 @@ const CategoryWrapper = styled.div`
   background: #ffda44;
 `;
 
+// todo: 一行显示备注和数字面板输出值（需要重新设计 NoteSection 和 NumberPadSection 组件）
+const Line = styled.div`
+  display: flex;
+`;
+
 function Money() {
   const [selected, setSelected] = useState(defaultFormData);
 
