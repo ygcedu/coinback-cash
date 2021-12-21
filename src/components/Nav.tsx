@@ -15,6 +15,7 @@ const NavWrapper = styled.nav`
     > li {
       width: 33.3333%;
       text-align: center;
+      position: relative;
 
       > a {
         padding: 4px 0;
@@ -24,12 +25,43 @@ const NavWrapper = styled.nav`
         justify-content: center;
         align-items: center;
 
-        &.selected {
+        &.selected:not(.add) {
           color: #ffda44;
 
           .icon {
             fill: #ffda44;
           }
+        }
+      }
+
+      .add {
+        &::before {
+          content: '';
+          display: block;
+          height: 24px;
+        }
+
+        .round {
+          position: absolute;
+          padding: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          border: 4px solid white;
+          background-color: #ffda44;
+          box-shadow: 0px -2px 6px -2px rgba(0, 0, 0, 0.25);
+          left: 50%;
+          bottom: 28px;
+          transform: translateX(-50%);
+
+          .icon {
+            fill: #000;
+          }
+        }
+
+        &.selected {
+          color: #ffda44;
         }
       }
     }
@@ -52,8 +84,10 @@ const Nav = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/money" activeClassName="selected">
-            <Icon name="add" size={24}/>
+          <NavLink to="/money" activeClassName="selected" className='add'>
+            <div className='round'>
+              <Icon name="add" size={24}/>
+            </div>
             记账
           </NavLink>
         </li>
