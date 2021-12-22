@@ -39,6 +39,17 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: relative;
+  animation: animate 1s ease;
+
+  @keyframes animate {
+    from {
+      left: 100vw;
+    }
+    to {
+      left: 0;
+    }
+  }
 
   > button {
     width: 100%;
