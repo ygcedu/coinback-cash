@@ -36,6 +36,7 @@ const Wrapper = styled.section`
 
 type Props = {
   value: number,
+  category: '-' | '+',
   onChange: (value: number) => void;
 }
 
@@ -53,13 +54,17 @@ const TagsSection: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <ol>
-        {tags.map(tag =>
-          <li key={tag.id} onClick={() => onToggleTag(tag.id)}
-              className={getClass(tag.id)}
-          >
-            <Icon name={tag.icon} size={24}/>
-          </li>
-        )}
+        {tags.map(tag => {
+          if (tag.category === props.category) {
+            return (
+              <li key={tag.id} onClick={() => onToggleTag(tag.id)}
+                  className={getClass(tag.id)}
+              >
+                <Icon name={tag.icon} size={24}/>
+              </li>
+            );
+          }
+        })}
         <li>
           <Link to='/tags'>
             <Icon name='setting' size={24}/>

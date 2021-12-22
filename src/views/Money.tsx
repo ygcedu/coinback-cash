@@ -67,6 +67,7 @@ function Money() {
                          onChange={category => onChange({category})}/>
       </CategoryWrapper>
       <TagsSection value={selected.tagId}
+                   category={selected.category}
                    onChange={tagId => onChange({tagId})}/>
       <div>
         <NoteSection value={selected.note}

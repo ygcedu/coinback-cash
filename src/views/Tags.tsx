@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useTags} from 'hooks/useTags';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
@@ -65,6 +65,7 @@ const Wrapper = styled.div`
 `;
 
 function Tags() {
+  const [category] = useState('/new-pay');
   const {tags, deleteTag} = useTags();
   const history = useHistory();
   // fixme: 用户直接输入 url 访问页面，则没法回退
@@ -98,7 +99,7 @@ function Tags() {
           </li>
         )}
       </TagList>
-      <Link to={'/tags/new'}>
+      <Link to={'/tags' + category}>
         <Button>+ 添加类别</Button>
       </Link>
     </Wrapper>

@@ -3,7 +3,7 @@ import Layout from 'components/Layout';
 import Icon from 'components/Icon';
 import {Input} from 'components/Input';
 import {useTags} from '../hooks/useTags';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import {Topbar} from './Tag/Topbar';
 import {Center} from '../components/Center';
@@ -29,9 +29,20 @@ const InputWrapper = styled.div`
   }
 `;
 
+type Params = {
+  category: '/new-pay' | '/new-income'
+}
+
 const Tag: React.FC = () => {
-  const [newTag, setNewTag] = useState<{ icon: string, name: string }>({icon: 'canyin', name: ''});
+  const [newTag, setNewTag] = useState<{ icon: string, name: string, category: '-' | '+' }>({
+    icon: 'canyin',
+    name: '',
+    category: '-'
+  });
   const {addTag} = useTags();
+  // id 重命名为 idString，隐式强调 id 的类型是 string 类型
+  let {category: categoryStr} = useParams<Params>();
+
   const tagContent = () => (
     <div>
       <InputWrapper>
@@ -42,7 +53,8 @@ const Tag: React.FC = () => {
                onChange={(e) => {
                  setNewTag({
                    icon: newTag.icon,
-                   name: e.target.value
+                   name: e.target.value,
+                   category: categoryStr === '/new-pay' ? '-' : '+'
                  });
                }}
         />
