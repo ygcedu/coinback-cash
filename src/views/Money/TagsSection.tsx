@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import {useTags} from 'hooks/useTags';
 import Icon from '../../components/Icon';
+import {Link} from 'react-router-dom';
 
 const Wrapper = styled.section`
   background: #FFFFFF;
@@ -40,7 +41,7 @@ type Props = {
 
 // FC = FunctionComponent
 const TagsSection: React.FC<Props> = (props) => {
-  const {tags, addTag} = useTags();
+  const {tags} = useTags();
   const selectedTagId = props.value;
 
   const onToggleTag = (tagId: number) => {
@@ -59,8 +60,10 @@ const TagsSection: React.FC<Props> = (props) => {
             <Icon name={tag.name} size={24}/>
           </li>
         )}
-        <li onClick={addTag}>
-          <Icon name='setting' size={24}/>
+        <li>
+          <Link to='/tags'>
+            <Icon name='setting' size={24}/>
+          </Link>
         </li>
       </ol>
     </Wrapper>

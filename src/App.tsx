@@ -24,10 +24,10 @@ function App() {
           <Route exact path="/money">
             <Money/>
           </Route>
-          <Route exact path="/statistics">
+          <Route exact path="/tags">
             <Tags/>
           </Route>
-          <Route exact path="/statistics/:id">
+          <Route exact path="/tags/:id">
             <Tag/>
           </Route>
           <Redirect exact from="/" to="/money"/>
