@@ -75,9 +75,9 @@ const Nav = () => {
     <NavWrapper>
       <ul>
         <li>
-          <NavLink to="/tags" activeClassName="selected">
+          <NavLink to="/details" activeClassName="selected">
             {
-              pathname === '/tags' ? <Icon name="details-fill" size={24}/> :
+              pathname === '/details' ? <Icon name="details-fill" size={24}/> :
                 <Icon name="details" size={24}/>
             }
             明细
@@ -97,7 +97,7 @@ const Nav = () => {
               pathname === '/statistics' ? <Icon name="statistics-fill" size={24}/> :
                 <Icon name="statistics" size={24}/>
             }
-            统计
+            图表
           </NavLink>
         </li>
       </ul>

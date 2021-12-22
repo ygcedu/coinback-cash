@@ -1,7 +1,7 @@
 import React from 'react';
 import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import Tags from 'views/Tags';
-import Statistics from 'views/Statistics';
+import Details from 'views/Details';
 import Money from 'views/Money';
 import NoMatch from 'views/NoMatch';
 import styled from 'styled-components';
@@ -18,17 +18,17 @@ function App() {
     <AppWrapper>
       <Router>
         <Switch>
-          <Route exact path="/tags">
-            <Tags/>
-          </Route>
-          <Route exact path="/tags/:id">
-            <Tag/>
+          <Route exact path="/details">
+            <Details/>
           </Route>
           <Route exact path="/money">
             <Money/>
           </Route>
           <Route exact path="/statistics">
-            <Statistics/>
+            <Tags/>
+          </Route>
+          <Route exact path="/statistics/:id">
+            <Tag/>
           </Route>
           <Redirect exact from="/" to="/money"/>
           <Route path="*">

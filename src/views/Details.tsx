@@ -31,7 +31,7 @@ const Header = styled.h3`
   padding: 10px 16px;
 `;
 
-function Statistics() {
+function Details() {
   const [category, setCategory] = useState<'-' | '+'>('-');
   const {records} = useRecords();
   const {getName} = useTags();
@@ -86,4 +86,4 @@ function Statistics() {
   );
 }
 
-export default Statistics;
+export default Details;
