@@ -24,10 +24,8 @@ const TagList = styled.ol`
       margin: 10px 10px 10px 0;
     }
 
-    // Link 就是一个 a 标签
-    > a {
+    > .divide {
       flex: 1;
-      padding: 12px 16px 12px 0;
       display: flex;
       justify-content: space-between; // 左右分开
       align-items: center; // 上下居中
@@ -51,7 +49,7 @@ const Wrapper = styled.div`
     }
   }
 
-  > button {
+  button {
     width: 100%;
     height: 56px;
     font-size: 16px;
@@ -64,15 +62,10 @@ const Wrapper = styled.div`
   .placeholder {
     width: 44px;
   }
-
-  header {
-    font-size: 16px;
-    background-color: #ffda44;
-  }
 `;
 
 function Tags() {
-  const {tags, addTag} = useTags();
+  const {tags, deleteTag} = useTags();
   const history = useHistory();
   // fixme: 用户直接输入 url 访问页面，则没法回退
   const onClickBack = () => {
@@ -91,18 +84,23 @@ function Tags() {
       <TagList>
         {tags.map(tag =>
           <li key={tag.id}>
-            <Icon name="remove" size={24}></Icon>
-            <Link to={'/tags/' + tag.id}>
+            <Icon name="remove" size={24} onClick={() => {
+              deleteTag(tag.id);
+              // window.history.back();
+            }}></Icon>
+            <div className='divide'>
               <Center>
                 <Icon name={tag.name} size={24}/>
                 <span className="oneLine">{tag.name}</span>
               </Center>
-            </Link>
+            </div>
             <Icon name="drag" size={24}></Icon>
           </li>
         )}
       </TagList>
-      <Button onClick={addTag}>+ 添加标签</Button>
+      <Link to={'/tags/new'}>
+        <Button>+ 添加类别</Button>
+      </Link>
     </Wrapper>
   );
 }

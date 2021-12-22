@@ -6,7 +6,8 @@ const Topbar = styled.header`
   align-items: center;
   line-height: 20px;
   padding: 14px;
-  background: white;
+  font-size: 16px;
+  background-color: #ffda44;
 `;
 
 export {Topbar};

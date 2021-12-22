@@ -1,48 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from 'components/Layout';
 import Icon from 'components/Icon';
-import {Button} from 'components/Button';
 import {Input} from 'components/Input';
-import {Center} from 'components/Center';
-import {Space} from 'components/Space';
 import {useTags} from '../hooks/useTags';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {Topbar} from './Tag/Topbar';
-
-type Params = {
-  id: string
-}
+import {Center} from '../components/Center';
 
 const InputWrapper = styled.div`
   background: white;
   padding: 0 16px;
   margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .round {
+    background-color: #ffda44;
+    border-radius: 50%;
+    width: 2.2em;
+    height: 2.2em;
+    margin-right: 16px;
+  }
+
+  label {
+    flex: 1;
+  }
 `;
 
 const Tag: React.FC = () => {
-  const {findTag, updateTag, deleteTag} = useTags();
-  // id 重命名为 idString，隐式强调 id 的类型是 string 类型
-  let {id: idString} = useParams<Params>();
-  const tag = findTag(parseInt(idString));
-  const tagContent = (tag: { id: number, name: string }) => (
+  const [name, setName] = useState('');
+  const {addTag} = useTags();
+  const tagContent = (tag: { icon: string, name: string }) => (
     <div>
       <InputWrapper>
-        <Input label="标签名" type="text" placeholder="标签名" value={tag.name}
+        <Center className='round'>
+          <Icon name={tag.icon} size={24}/>
+        </Center>
+        <Input type="text" placeholder="请输入类别名称（不超过4个汉字）" value={name}
                onChange={(e) => {
-                 updateTag(tag.id, {name: e.target.value});
+                 setName(e.target.value);
                }}
         />
       </InputWrapper>
-      <Center>
-        <Space/>
-        <Space/>
-        <Space/>
-        <Button onClick={() => {
-          deleteTag(tag.id);
-          // window.history.back();
-        }}>删除标签</Button>
-      </Center>
     </div>
   );
 
@@ -55,11 +56,11 @@ const Tag: React.FC = () => {
   return (
     <Layout>
       <Topbar>
-        <Icon name="left" onClick={onClickBack}/>
-        <span>编辑标签</span>
-        <span/>
+        <Icon name="left" size={24} onClick={onClickBack}/>
+        <span>添加类别</span>
+        <span onClick={() => addTag(name)}>完成</span>
       </Topbar>
-      {tag ? tagContent(tag) : <Center>tag 不存在</Center>}
+      {tagContent({icon: 'shucai', name: '蔬菜'})}
     </Layout>
   );
 };

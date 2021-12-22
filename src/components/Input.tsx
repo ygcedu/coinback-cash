@@ -20,7 +20,7 @@ const Label = styled.label`
   }
 `;
 type Props = {
-  label: string;
+  label?: string;
   icon?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;// 继承一部分 input 的属性
 

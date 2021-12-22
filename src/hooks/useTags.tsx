@@ -69,8 +69,7 @@ const useTags = () => {
     // filter 会返回一个新数组
     setTags(tags.filter(tag => tag.id !== id));
   };
-  const addTag = () => {
-    const tagName = window.prompt('新标签的名称为');
+  const addTag = (tagName: string) => {
     if (tagName !== null && tagName !== '') {
       setTags([...tags, {id: createId(), name: tagName}]);
     }
