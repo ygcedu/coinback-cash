@@ -34,26 +34,20 @@ const Wrapper = styled.section`
 `;
 
 type Props = {
-  value: number[],
-  onChange: (value: number[]) => void;
+  value: number,
+  onChange: (value: number) => void;
 }
 
 // FC = FunctionComponent
 const TagsSection: React.FC<Props> = (props) => {
   const {tags, addTag} = useTags();
-  const selectedTagIds = props.value;
+  const selectedTagId = props.value;
 
   const onToggleTag = (tagId: number) => {
-    const index = selectedTagIds.indexOf(tagId);
-    if (index >= 0) {
-      // 如果 tag 已被选中，就复制所有没有被选中的 tag，作为新的 selectedTag
-      props.onChange(selectedTagIds.filter(t => t !== tagId));
-    } else {
-      props.onChange([...selectedTagIds, tagId]);
-    }
+    props.onChange(tagId);
   };
 
-  const getClass = (tagId: number) => tagId === -1 || selectedTagIds.indexOf(tagId) >= 0 ? 'selected' : '';
+  const getClass = (tagId: number) => selectedTagId === tagId ? 'selected' : '';
 
   return (
     <Wrapper>
@@ -65,8 +59,7 @@ const TagsSection: React.FC<Props> = (props) => {
             <Icon name={tag.name} size={24}/>
           </li>
         )}
-        <li onClick={addTag}
-            className={getClass(-1)}>
+        <li onClick={addTag}>
           <Icon name='setting' size={24}/>
         </li>
       </ol>

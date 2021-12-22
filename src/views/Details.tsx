@@ -1,10 +1,11 @@
 import Layout from '../components/Layout';
-import React, {ReactNode, useState} from 'react';
+import React, {useState} from 'react';
 import {CategorySection} from './Money/CategorySection';
 import styled from 'styled-components';
 import {RecordItem, useRecords} from '../hooks/useRecords';
 import {useTags} from '../hooks/useTags';
 import day from 'dayjs';
+import Icon from '../components/Icon';
 
 const CategoryWrapper = styled.div`
   background: white;
@@ -17,11 +18,27 @@ const Item = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding: 10px 16px;
+  border-bottom: 1px solid #ccc;
 
   > .note {
     margin-right: auto;
     margin-left: 16px;
     color: #999;
+  }
+
+  > .tag,
+  > .note,
+  > .amount {
+    display: flex;
+    align-items: center;
+  }
+
+  > .tag {
+    justify-content: center;
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    background: #ffda44;
   }
 `;
 
@@ -66,13 +83,8 @@ function Details() {
           <div>
             {records.map((r, index) => {
               return <Item key={index}>
-                <div className="tags oneLine">
-                  {r.tagIds
-                    .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
-                    .reduce((result, span, index, array) =>
-                        result.concat(index < array.length - 1 ? [span, '，'] : [span]),
-                      [] as ReactNode[])
-                  }
+                <div className="tag">
+                  <Icon name={getName(r.tagId)} size={24}/>
                 </div>
                 {r.note && <div className="note">
                   {r.note}

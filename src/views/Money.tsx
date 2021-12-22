@@ -26,7 +26,7 @@ const MyLayout = styled(Layout)`
 type Category = ('-' | '+');
 
 const defaultFormData = {
-  tagIds: [] as number[],
+  tagId: -2,
   note: '',
   category: '-' as Category,
   amount: 0
@@ -62,8 +62,8 @@ function Money() {
         <CategorySection value={selected.category}
                          onChange={category => onChange({category})}/>
       </CategoryWrapper>
-      <TagsSection value={selected.tagIds}
-                   onChange={tagIds => onChange({tagIds})}/>
+      <TagsSection value={selected.tagId}
+                   onChange={tagId => onChange({tagId})}/>
       <div>
         <NoteSection value={selected.note}
                      onChange={note => onChange({note})}/>

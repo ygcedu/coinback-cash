@@ -13,7 +13,7 @@ import {useUpdate} from './useUpdate';
 // }
 
 export type RecordItem = {
-  tagIds: number[]
+  tagId: number
   note: string
   category: '+' | '-'
   amount: number
@@ -39,7 +39,7 @@ export const useRecords = () => {
       alert('请输入金额');
       return false;
     }
-    if (newRecord.tagIds.length === 0) {
+    if (newRecord.tagId < 0) {
       alert('请选择标签');
       return false;
     }
