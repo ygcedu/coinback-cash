@@ -2,25 +2,17 @@ import React from 'react';
 import Layout from 'components/Layout';
 import Icon from 'components/Icon';
 import {Button} from 'components/Button';
-import styled from 'styled-components';
 import {Input} from 'components/Input';
 import {Center} from 'components/Center';
 import {Space} from 'components/Space';
 import {useTags} from '../hooks/useTags';
 import {useHistory, useParams} from 'react-router-dom';
+import styled from 'styled-components';
+import {Topbar} from './Tag/Topbar';
 
 type Params = {
   id: string
 }
-
-const Topbar = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: 20px;
-  padding: 14px;
-  background: white;
-`;
 
 const InputWrapper = styled.div`
   background: white;
