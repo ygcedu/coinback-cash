@@ -21,6 +21,10 @@ const MyLayout = styled(Layout)`
       bottom: 0;
     }
   }
+
+  section {
+    flex: 1;
+  }
 `;
 
 type Category = ('-' | '+');

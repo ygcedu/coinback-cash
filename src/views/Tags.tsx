@@ -90,7 +90,7 @@ function Tags() {
             }}></Icon>
             <div className='divide'>
               <Center>
-                <Icon name={tag.name} size={24}/>
+                <Icon name={tag.icon} size={24}/>
                 <span className="oneLine">{tag.name}</span>
               </Center>
             </div>

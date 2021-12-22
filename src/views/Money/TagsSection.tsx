@@ -57,7 +57,7 @@ const TagsSection: React.FC<Props> = (props) => {
           <li key={tag.id} onClick={() => onToggleTag(tag.id)}
               className={getClass(tag.id)}
           >
-            <Icon name={tag.name} size={24}/>
+            <Icon name={tag.icon} size={24}/>
           </li>
         )}
         <li>

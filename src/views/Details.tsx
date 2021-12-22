@@ -51,7 +51,7 @@ const Header = styled.h3`
 function Details() {
   const [category, setCategory] = useState<'-' | '+'>('-');
   const {records} = useRecords();
-  const {getName} = useTags();
+  const {getIcon} = useTags();
   const hash: { [K: string]: RecordItem[] } = {};
   const selectedRecords = records.filter(r => r.category === category);
 
@@ -84,7 +84,7 @@ function Details() {
             {records.map((r, index) => {
               return <Item key={index}>
                 <div className="tag">
-                  <Icon name={getName(r.tagId)} size={24}/>
+                  <Icon name={getIcon(r.tagId)} size={24}/>
                 </div>
                 {r.note && <div className="note">
                   {r.note}

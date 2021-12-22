@@ -30,17 +30,20 @@ const InputWrapper = styled.div`
 `;
 
 const Tag: React.FC = () => {
-  const [name, setName] = useState('');
+  const [newTag, setNewTag] = useState<{ icon: string, name: string }>({icon: 'canyin', name: ''});
   const {addTag} = useTags();
-  const tagContent = (tag: { icon: string, name: string }) => (
+  const tagContent = () => (
     <div>
       <InputWrapper>
         <Center className='round'>
-          <Icon name={tag.icon} size={24}/>
+          <Icon name={newTag.icon} size={20}/>
         </Center>
-        <Input type="text" placeholder="请输入类别名称（不超过4个汉字）" value={name}
+        <Input type="text" placeholder="请输入类别名称（不超过4个汉字）" value={newTag.name}
                onChange={(e) => {
-                 setName(e.target.value);
+                 setNewTag({
+                   icon: newTag.icon,
+                   name: e.target.value
+                 });
                }}
         />
       </InputWrapper>
@@ -58,9 +61,9 @@ const Tag: React.FC = () => {
       <Topbar>
         <Icon name="left" size={24} onClick={onClickBack}/>
         <span>添加类别</span>
-        <span onClick={() => addTag(name)}>完成</span>
+        <span onClick={() => addTag(newTag)}>完成</span>
       </Topbar>
-      {tagContent({icon: 'shucai', name: '蔬菜'})}
+      {tagContent()}
     </Layout>
   );
 };
