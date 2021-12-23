@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useTags} from 'hooks/useTags';
+import {Category, useTags} from 'hooks/useTags';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 import {Link, useHistory, useParams} from 'react-router-dom';
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   }
 
   .placeholder {
-    width: 44px;
+    width: 24px;
   }
 `;
 
@@ -72,9 +72,9 @@ function Tags() {
   const onClickBack = () => {
     history.goBack();
   };
-  const {category: type} = useParams<{ category: 'expense' | 'income' }>();
-  const [category, setCategory] = useState<'expense' | 'income'>(type);
 
+  const {category: type} = useParams<{ category: Category }>();
+  const [category, setCategory] = useState<Category>(type);
   const tagGroup = filterTag(category);
 
   return (
@@ -84,7 +84,9 @@ function Tags() {
           <Icon name="left" size={24}/>返回
         </Center>
         <span>类别设置</span>
-        <span className='placeholder'/>
+        <Center style={{opacity: 0}}>
+          <Icon name="left" size={24}/>占位
+        </Center>
       </Topbar>
       <CategoryBar value={category}
                    onChange={category => {
