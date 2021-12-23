@@ -5,7 +5,7 @@ import Details from 'views/Details';
 import Money from 'views/Money';
 import NoMatch from 'views/NoMatch';
 import styled from 'styled-components';
-import {Tag} from 'views/Tag';
+import {Tag} from './views/Tag';
 
 const AppWrapper = styled.div`
   color: #333;
@@ -24,10 +24,10 @@ function App() {
           <Route exact path="/money">
             <Money/>
           </Route>
-          <Route exact path="/tags">
+          <Route exact path="/tags/:category">
             <Tags/>
           </Route>
-          <Route exact path="/tags/new-pay">
+          <Route exact path="/tags/:category/new">
             <Tag/>
           </Route>
           <Redirect exact from="/" to="/money"/>

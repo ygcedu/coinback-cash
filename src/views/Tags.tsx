@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {useTags} from 'hooks/useTags';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/Button';
 import {Topbar} from './Tag/Topbar';
 import {Center} from '../components/Center';
+import {CategoryBar} from './Tag/CategoryBar';
 
 const TagList = styled.ol`
   font-size: 16px;
@@ -65,13 +66,16 @@ const Wrapper = styled.div`
 `;
 
 function Tags() {
-  const [category] = useState('/new-pay');
-  const {tags, deleteTag} = useTags();
+  const {deleteTag, filterTag} = useTags();
   const history = useHistory();
   // fixme: 用户直接输入 url 访问页面，则没法回退
   const onClickBack = () => {
     history.goBack();
   };
+  const {category: type} = useParams<{ category: 'expense' | 'income' }>();
+  const [category, setCategory] = useState<'expense' | 'income'>(type);
+
+  const tagGroup = filterTag(category);
 
   return (
     <Wrapper>
@@ -82,8 +86,12 @@ function Tags() {
         <span>类别设置</span>
         <span className='placeholder'/>
       </Topbar>
+      <CategoryBar value={category}
+                   onChange={category => {
+                     setCategory(category);
+                   }}/>
       <TagList>
-        {tags.map(tag =>
+        {tagGroup.map(tag =>
           <li key={tag.id}>
             <Icon name="remove" size={24} onClick={() => {
               deleteTag(tag.id);
@@ -99,7 +107,7 @@ function Tags() {
           </li>
         )}
       </TagList>
-      <Link to={'/tags' + category}>
+      <Link to={`/tags/${category}/new`}>
         <Button>+ 添加类别</Button>
       </Link>
     </Wrapper>

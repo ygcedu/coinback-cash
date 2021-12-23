@@ -49,7 +49,7 @@ const Header = styled.h3`
 `;
 
 function Details() {
-  const [category, setCategory] = useState<'-' | '+'>('-');
+  const [category, setCategory] = useState<'expense' | 'income'>('expense');
   const {records} = useRecords();
   const {getIcon} = useTags();
   const hash: { [K: string]: RecordItem[] } = {};

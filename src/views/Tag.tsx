@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Layout from 'components/Layout';
 import Icon from 'components/Icon';
 import {Input} from 'components/Input';
-import {useTags} from '../hooks/useTags';
+import {Category, TagItem, useTags} from '../hooks/useTags';
 import {useHistory, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import {Topbar} from './Tag/Topbar';
@@ -30,18 +30,19 @@ const InputWrapper = styled.div`
 `;
 
 type Params = {
-  category: '/new-pay' | '/new-income'
+  category: Category
 }
 
+const categoryMap = {'expense': '支出', 'income': '收入'};
+
 const Tag: React.FC = () => {
-  const [newTag, setNewTag] = useState<{ icon: string, name: string, category: '-' | '+' }>({
+  const [newTag, setNewTag] = useState<Omit<TagItem, 'id'>>({
     icon: 'canyin',
     name: '',
-    category: '-'
+    category: 'expense'
   });
   const {addTag} = useTags();
-  // id 重命名为 idString，隐式强调 id 的类型是 string 类型
-  let {category: categoryStr} = useParams<Params>();
+  let {category} = useParams<Params>();
 
   const tagContent = () => (
     <div>
@@ -54,7 +55,7 @@ const Tag: React.FC = () => {
                  setNewTag({
                    icon: newTag.icon,
                    name: e.target.value,
-                   category: categoryStr === '/new-pay' ? '-' : '+'
+                   category
                  });
                }}
         />
@@ -72,7 +73,7 @@ const Tag: React.FC = () => {
     <Layout>
       <Topbar>
         <Icon name="left" size={24} onClick={onClickBack}/>
-        <span>添加类别</span>
+        <span>添加{categoryMap[category]}类别</span>
         <span onClick={() => addTag(newTag)}>完成</span>
       </Topbar>
       {tagContent()}

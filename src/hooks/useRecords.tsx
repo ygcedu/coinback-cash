@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useUpdate} from './useUpdate';
+import {Category} from './useTags';
 
 // type NewRecordItem = {
 //   tagIds: number[]
@@ -15,7 +16,7 @@ import {useUpdate} from './useUpdate';
 export type RecordItem = {
   tagId: number
   note: string
-  category: '+' | '-'
+  category: Category
   amount: number
   createdAt: string // ISO 8601
 }

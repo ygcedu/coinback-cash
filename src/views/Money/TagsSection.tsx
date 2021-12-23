@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import {useTags} from 'hooks/useTags';
+import {Category, useTags} from 'hooks/useTags';
 import Icon from '../../components/Icon';
 import {Link} from 'react-router-dom';
 
@@ -36,7 +36,7 @@ const Wrapper = styled.section`
 
 type Props = {
   value: number,
-  category: '-' | '+',
+  category: Category,
   onChange: (value: number) => void;
 }
 
@@ -51,22 +51,19 @@ const TagsSection: React.FC<Props> = (props) => {
 
   const getClass = (tagId: number) => selectedTagId === tagId ? 'selected' : '';
 
+  const tagGroup = tags.filter(tag => tag.category === props.category);
+
   return (
     <Wrapper>
       <ol>
-        {tags.map(tag => {
-          if (tag.category === props.category) {
-            return (
-              <li key={tag.id} onClick={() => onToggleTag(tag.id)}
-                  className={getClass(tag.id)}
-              >
-                <Icon name={tag.icon} size={24}/>
-              </li>
-            );
-          }
-        })}
+        {tagGroup.map(tag =>
+          <li key={tag.id} onClick={() => onToggleTag(tag.id)}
+              className={getClass(tag.id)}>
+            <Icon name={tag.icon} size={24}/>
+          </li>
+        )}
         <li>
-          <Link to='/tags'>
+          <Link to={'/tags/' + props.category}>
             <Icon name='setting' size={24}/>
           </Link>
         </li>

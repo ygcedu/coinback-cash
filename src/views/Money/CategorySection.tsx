@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
+import {Category} from '../../hooks/useTags';
 
 const Wrapper = styled.section`
   font-size: 18px;
@@ -43,14 +44,14 @@ const Wrapper = styled.section`
 `;
 
 type Props = {
-  value: '-' | '+',
-  onChange: (value: '-' | '+') => void;
+  value: Category
+  onChange: (value: Category) => void;
 }
 
 const CategorySection: React.FC<Props> = (props) => {
-  const categoryMap = {'-': '支出', '+': '收入'};
+  const categoryMap = {'expense': '支出', 'income': '收入'};
   type Keys = keyof typeof categoryMap
-  const [categoryList] = useState<Keys[]>(['-', '+']);
+  const [categoryList] = useState<Keys[]>(['expense', 'income']);
 
   const category = props.value;// + 表示收入，-表示支出
   return (

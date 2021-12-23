@@ -6,6 +6,7 @@ import {NoteSection} from './Money/NoteSection';
 import {NumberPadSection} from './Money/NumberPadSection';
 import {TagsSection} from './Money/TagsSection';
 import {useRecords} from '../hooks/useRecords';
+import {Category} from '../hooks/useTags';
 
 const MyLayout = styled(Layout)`
   display: flex;
@@ -27,12 +28,10 @@ const MyLayout = styled(Layout)`
   }
 `;
 
-type Category = ('-' | '+');
-
 const defaultFormData = {
   tagId: -2,
   note: '',
-  category: '-' as Category,
+  category: 'expense' as Category,
   amount: 0
 };
 
