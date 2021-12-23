@@ -6,6 +6,7 @@ import {RecordItem, useRecords} from '../hooks/useRecords';
 import {useTags} from '../hooks/useTags';
 import day from 'dayjs';
 import Icon from '../components/Icon';
+import {Topbar} from './Tag/Topbar';
 
 const CategoryWrapper = styled.div`
   background: white;
@@ -43,10 +44,21 @@ const Item = styled.div`
 `;
 
 const Header = styled.h3`
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
   padding: 10px 16px;
+  font-weight: normal;
 `;
+
+const Wrapper = styled.div`
+  header {
+    justify-content: center;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+  }
+`;
+
+const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'];
 
 function Details() {
   const [category, setCategory] = useState<'expense' | 'income'>('expense');
@@ -56,7 +68,7 @@ function Details() {
   const selectedRecords = records.filter(r => r.category === category);
 
   selectedRecords.forEach(r => {
-    const key = day(r.createdAt).format('YYYY年MM月DD');
+    const key = day(r.createdAt).format('MM月DD日') + ' ' + week[day(r.createdAt).day()];
     if (!(key in hash)) {
       hash[key] = [];
     }
@@ -73,6 +85,9 @@ function Details() {
 
   return (
     <Layout>
+      <Wrapper>
+        <Topbar>记账本</Topbar>
+      </Wrapper>
       <CategoryWrapper>
         <CategorySection value={category}
                          onChange={value => setCategory(value)}/>
