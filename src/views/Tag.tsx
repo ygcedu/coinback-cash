@@ -74,7 +74,10 @@ const Tag: React.FC = () => {
       <Topbar>
         <Icon name="left" size={24} onClick={onClickBack}/>
         <span>添加{categoryMap[category]}类别</span>
-        <span onClick={() => addTag(newTag)}>完成</span>
+        <span onClick={() => {
+          addTag(newTag);
+          history.goBack();
+        }}>完成</span>
       </Topbar>
       {tagContent()}
     </Layout>

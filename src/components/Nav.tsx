@@ -35,6 +35,7 @@ const NavWrapper = styled.nav`
       }
 
       .add {
+        // 占位用
         &::before {
           content: '';
           display: block;
