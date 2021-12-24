@@ -19,7 +19,7 @@ const Item = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding: 10px 16px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 
   > .note {
     margin-right: auto;

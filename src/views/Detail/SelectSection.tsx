@@ -1,45 +1,72 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import {SelectBar} from '../Tag/SelectBar';
+import Icon from '../../components/Icon';
+import {Center} from '../../components/Center';
+import cs from 'classnames';
 
 const Wrapper = styled.section`
-  font-size: 18px;
+  font-size: 14px;
   background-color: #ffda44;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-  > ul {
+  .category {
+    text-align: center;
+    padding: 20px 0;
+
+    > div {
+      display: inline-block;
+    }
+
+    svg {
+      margin-left: 0.5em;
+    }
+  }
+
+  > ul.category-list {
     display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    transition: all 0.25s linear;
 
     > li {
-      width: 50%;
       //text-align: center;
       padding: 16px 0;
       line-height: 1em;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 20px;
 
-      &.selected > span {
-        position: relative;
+      span {
+        flex: 1;
+        margin-left: 10px;
+      }
 
-        &::after {
-          content: '';
-          display: block;
-          height: 3px;
-          background: #333;
-          position: absolute;
-          bottom: -16px;
-          width: 2.8em;
-          left: 50%;
-          transform: translateX(-50%);
-        }
+      svg:first-child {
+        color: #ffc144;
+      }
+
+      svg:last-child {
+        opacity: 0;
+      }
+
+      &.selected > :last-child {
+        opacity: 1;
       }
     }
 
-    > li:first-child {
-      text-align: right;
-      padding-right: 18px;
+    &.show {
+      top: 100%;
     }
 
-    > li:nth-child(2) {
-      text-align: left;
-      padding-left: 18px;
+    &.hidden {
+      top: -100%;
     }
   }
 `;
@@ -63,23 +90,36 @@ const SelectSection: React.FC<Props> = (props) => {
   type Keys = keyof typeof categoryMap
   const [categoryList] = useState<Keys[]>(['expense', 'income']);
   const [dateCategory, setDateCategory] = useState(props.date);
+  const [visible, setVisible] = useState(false);
+
+  const showSelector = () => {
+    setVisible(!visible);
+  };
 
   return (
     <Wrapper>
-      <ul>
-        {categoryList.map(c =>
-          <li key={c} className={props.category === c ? 'selected' : ''}
-              onClick={() => props.onChange({category: c})}>
-            <span>{categoryMap[c]}</span>
-          </li>
-        )}
-      </ul>
+      <div className='category'>
+        <Center onClick={showSelector}>
+          {categoryMap[props.category as Keys]}
+          <Icon name='down' size={16}/>
+        </Center>
+      </div>
       <SelectBar value={dateCategory}
                  map={dateCategoryMap}
                  onChange={(value) => {
                    setDateCategory(value);
                    props.onChange({date: value});
                  }}/>
+      <ul className={cs('category-list', visible ? 'show' : 'hidden')}>
+        {categoryList.map(c =>
+          <li key={c} className={props.category === c ? 'selected' : ''}
+              onClick={() => props.onChange({category: c})}>
+            <Icon name={c} size={24}/>
+            <span>{categoryMap[c]}</span>
+            <Icon name='check' size={24}/>
+          </li>
+        )}
+      </ul>
     </Wrapper>
   );
 };

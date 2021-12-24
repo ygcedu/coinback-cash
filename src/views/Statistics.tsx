@@ -14,7 +14,7 @@ const Item = styled.div`
   font-size: 18px;
   line-height: 20px;
   padding: 10px 16px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 
   > .note {
     margin-right: auto;
@@ -43,6 +43,19 @@ const Header = styled.h3`
   line-height: 20px;
   padding: 10px 16px;
   font-weight: normal;
+`;
+
+const Wrapper = styled.div`
+  .mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9;
+    display: none;
+  }
 `;
 
 const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'];
@@ -85,23 +98,26 @@ function Statistics() {
       <SelectSection category={selected.category}
                      date={selected.date}
                      onChange={value => onChange(value)}/>
-      {array.map(([date, records], i) =>
-        <div key={i}>
-          <Header>{date}</Header>
-          <div>
-            {records.map((r, index) => {
-              return <Item key={index}>
-                <div className="tag">
-                  <Icon name={getIcon(r.tagId)} size={24}/>
-                </div>
-                {r.note && <div className="note">
-                  {r.note}
-                </div>}
-                <div className="amount">￥{r.amount}</div>
-              </Item>;
-            })}
-          </div>
-        </div>)}
+      <Wrapper>
+        <div className='mask'/>
+        {array.map(([date, records], i) =>
+          <div key={i}>
+            <Header>{date}</Header>
+            <div>
+              {records.map((r, index) => {
+                return <Item key={index}>
+                  <div className="tag">
+                    <Icon name={getIcon(r.tagId)} size={24}/>
+                  </div>
+                  {r.note && <div className="note">
+                    {r.note}
+                  </div>}
+                  <div className="amount">￥{r.amount}</div>
+                </Item>;
+              })}
+            </div>
+          </div>)}
+      </Wrapper>
     </Layout>
   );
 }
