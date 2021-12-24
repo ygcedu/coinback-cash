@@ -40,7 +40,9 @@ const Wrapper = styled.div`
   height: 100vh;
   position: relative;
   animation: animate 1s ease;
+  overflow: hidden;
 
+  // fixme: 此动画在 pc 端（屏幕较宽时），效果较差！
   @keyframes animate {
     from {
       left: 100vw;
