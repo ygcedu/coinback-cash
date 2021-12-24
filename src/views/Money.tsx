@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {CategorySection} from './Money/CategorySection';
 import {NoteSection} from './Money/NoteSection';
@@ -7,7 +7,7 @@ import {NumberPadSection} from './Money/NumberPadSection';
 import {TagsSection} from './Money/TagsSection';
 import {useRecords} from '../hooks/useRecords';
 import {Category} from '../hooks/useTags';
-import {useHistory} from 'react-router-dom';
+import {useRouter} from '../hooks/useRouter';
 
 const MyLayout = styled(Layout)`
   display: flex;
@@ -47,25 +47,18 @@ const CategoryWrapper = styled.div`
 
 function Money() {
   const [selected, setSelected] = useState(defaultFormData);
+  const {redirect} = useRouter();
 
   const {addRecord} = useRecords();
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({...selected, ...obj});
   };
-  const history = useHistory();
-
-  const [redirect, setRedirect] = useState(false);
-
-  useEffect(() => {
-    if (redirect) {
-      history.push('/details');
-    }
-  }, [redirect]);
 
   const submit = () => {
     if (addRecord(selected)) {
       setSelected(defaultFormData);
-      setRedirect(true);
+      // setRedirect(true);
+      redirect('/details');
     }
   };
 
