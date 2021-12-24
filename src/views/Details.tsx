@@ -8,6 +8,17 @@ import day from 'dayjs';
 import Icon from '../components/Icon';
 import {Topbar} from './Tag/Topbar';
 
+const MyLayout = styled(Layout)`
+  display: flex;
+  flex-direction: column;
+
+  .details {
+    // 只中间区域滚动
+    flex: 1;
+    overflow-y: auto;
+  }
+`;
+
 const CategoryWrapper = styled.div`
   background: white;
 `;
@@ -84,7 +95,7 @@ function Details() {
   });
 
   return (
-    <Layout>
+    <MyLayout>
       <Wrapper>
         <Topbar>记账本</Topbar>
       </Wrapper>
@@ -92,24 +103,26 @@ function Details() {
         <CategorySection value={category}
                          onChange={value => setCategory(value)}/>
       </CategoryWrapper>
-      {array.map(([date, records], i) =>
-        <div key={i}>
-          <Header>{date}</Header>
-          <div>
-            {records.map((r, index) => {
-              return <Item key={index}>
-                <div className="tag">
-                  <Icon name={getIcon(r.tagId)} size={24}/>
-                </div>
-                {r.note && <div className="note">
-                  {r.note}
-                </div>}
-                <div className="amount">￥{r.amount}</div>
-              </Item>;
-            })}
-          </div>
-        </div>)}
-    </Layout>
+      <div className='details'>
+        {array.map(([date, records], i) =>
+          <div key={i}>
+            <Header>{date}</Header>
+            <div>
+              {records.map((r, index) => {
+                return <Item key={index}>
+                  <div className="tag">
+                    <Icon name={getIcon(r.tagId)} size={24}/>
+                  </div>
+                  {r.note && <div className="note">
+                    {r.note}
+                  </div>}
+                  <div className="amount">￥{r.amount}</div>
+                </Item>;
+              })}
+            </div>
+          </div>)}
+      </div>
+    </MyLayout>
   );
 }
 
