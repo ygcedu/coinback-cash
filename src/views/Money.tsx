@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {CategorySection} from './Money/CategorySection';
 import {NoteSection} from './Money/NoteSection';
@@ -54,10 +54,18 @@ function Money() {
   };
   const history = useHistory();
 
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    if (redirect) {
+      history.push('/details');
+    }
+  }, [redirect]);
+
   const submit = () => {
     if (addRecord(selected)) {
       setSelected(defaultFormData);
-      history.push('/details');
+      setRedirect(true);
     }
   };
 
