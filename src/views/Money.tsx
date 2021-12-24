@@ -7,6 +7,7 @@ import {NumberPadSection} from './Money/NumberPadSection';
 import {TagsSection} from './Money/TagsSection';
 import {useRecords} from '../hooks/useRecords';
 import {Category} from '../hooks/useTags';
+import {useHistory} from 'react-router-dom';
 
 const MyLayout = styled(Layout)`
   display: flex;
@@ -51,11 +52,12 @@ function Money() {
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({...selected, ...obj});
   };
+  const history = useHistory();
 
   const submit = () => {
     if (addRecord(selected)) {
-      alert('保存成功');
       setSelected(defaultFormData);
+      history.push('/details');
     }
   };
 
