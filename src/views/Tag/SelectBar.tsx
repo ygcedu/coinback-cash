@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-import {Category} from 'hooks/useTags';
 
 const Wrapper = styled.section`
   display: flex;
@@ -11,7 +10,6 @@ const Wrapper = styled.section`
 
   > ul {
     display: flex;
-    width: 80%;
     border: 1px solid #333;
     margin-bottom: 14px;
     border-radius: 8px;
@@ -19,7 +17,7 @@ const Wrapper = styled.section`
     align-items: center;
 
     > li {
-      flex: 1;
+      width: 110px;
       text-align: center;
       padding: 0.4em 0;
 
@@ -27,28 +25,31 @@ const Wrapper = styled.section`
         background-color: #333;
         color: white;
       }
+
+      &:not(:first-child) {
+        border-left: 1px solid #333;
+      }
     }
   }
 `;
 
 type Props = {
-  value: Category,
-  onChange: (value: Category) => void;
+  value: string
+  map: { [key: string]: string }
+  onChange: (value: string) => void
 }
 
-const CategoryBar: React.FC<Props> = (props) => {
-  const categoryMap = {'expense': '支出', 'income': '收入'};
-  type Keys = keyof typeof categoryMap
-  const [categoryList] = useState<Keys[]>(['expense', 'income']);
+const SelectBar: React.FC<Props> = (props) => {
+  const [options] = useState<string[]>(Object.keys(props.map));
+  const selected = props.value;
 
-  const category = props.value;// income 表示收入，expense 表示支出
   return (
     <Wrapper>
       <ul>
-        {categoryList.map(c =>
-          <li key={c} className={category === c ? 'selected' : ''}
+        {options.map(c =>
+          <li key={c} className={selected === c ? 'selected' : ''}
               onClick={() => props.onChange(c)}>
-            {categoryMap[c]}
+            {props.map[c]}
           </li>
         )}
       </ul>
@@ -56,4 +57,4 @@ const CategoryBar: React.FC<Props> = (props) => {
   );
 };
 
-export {CategoryBar};
+export {SelectBar};

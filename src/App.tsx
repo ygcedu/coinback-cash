@@ -6,6 +6,7 @@ import Money from 'views/Money';
 import NoMatch from 'views/NoMatch';
 import styled from 'styled-components';
 import {Tag} from './views/Tag';
+import Statistics from './views/Statistics';
 
 const AppWrapper = styled.div`
   color: #333;
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route exact path="/money">
             <Money/>
+          </Route>
+          <Route exact path="/statistics">
+            <Statistics/>
           </Route>
           <Route exact path="/tags/:category">
             <Tags/>

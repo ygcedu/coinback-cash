@@ -6,7 +6,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/Button';
 import {Topbar} from './Tag/Topbar';
 import {Center} from '../components/Center';
-import {CategoryBar} from './Tag/CategoryBar';
+import {SelectBar} from './Tag/SelectBar';
 
 const TagList = styled.ol`
   font-size: 16px;
@@ -88,10 +88,11 @@ function Tags() {
           <Icon name="left" size={24}/>占位
         </Center>
       </Topbar>
-      <CategoryBar value={category}
-                   onChange={category => {
-                     setCategory(category);
-                   }}/>
+      <SelectBar value={category}
+                 map={{expense: '支出', income: '收入'}}
+                 onChange={(category) => {
+                   setCategory(category as Category);
+                 }}/>
       <TagList>
         {tagGroup.map(tag =>
           <li key={tag.id}>
@@ -114,6 +115,6 @@ function Tags() {
       </Link>
     </Wrapper>
   );
-}
+};
 
 export default Tags;
