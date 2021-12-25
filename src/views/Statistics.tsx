@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {RecordItem, useRecords} from '../hooks/useRecords';
-import {useTags} from '../hooks/useTags';
+import {DataUnit, RecordItem, useRecords} from '../hooks/useRecords';
+import {Category, useTags} from '../hooks/useTags';
 import day from 'dayjs';
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
 import Nav from '../components/Nav';
 import {VerticalSelect} from './Tag/VerticalSelect';
+
+dayjs.extend(isoWeek);
 
 const MyLayout = styled.div`
   height: 100vh;
@@ -118,27 +122,37 @@ const Main = styled.div`
   }
 
   .details {
-    flex: 1;
+    flex-grow: 1;
     overflow-y: auto;
   }
+`;
+
+const Wrapper = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #ccc;
 `;
 
 const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'];
 
 const defaultSelected = {
   category: 'expense',
-  date: 'week',
+  dateUnit: 'week',
   listVisible: false
 };
 
 function Statistics() {
   const [selected, setSelected] = useState(defaultSelected);
+  type Selected = Partial<typeof selected>;
 
-  const onChange = (obj: Partial<typeof selected>) => {
+  const onChange = (obj: Selected) => {
     setSelected({...selected, ...obj});
   };
 
-  const {records} = useRecords();
+  const {records, getRecords} = useRecords();
   const {getIcon} = useTags();
   const hash: { [K: string]: RecordItem[] } = {};
   const selectedRecords = records.filter(r => r.category === selected.category);
@@ -177,10 +191,48 @@ function Statistics() {
     '12': '本月',
   };
 
+  console.log(getRecords({
+    category: selected.category as Category,
+    dateUnit: selected.dateUnit as DataUnit,
+    date: 5
+  }));
+
+  const Detail = () => {
+    let inner;
+    if (array.length === 0) {
+      inner = <Wrapper>
+        <Icon name='nodata' size={100}/>
+        暂无数据
+      </Wrapper>;
+    } else {
+      inner = array.map(([date, records], i) =>
+        <div key={i}>
+          <Header>{date}</Header>
+          <div>
+            {records.map((r, index) => {
+              return <Item key={index}>
+                <div className="tag">
+                  <Icon name={getIcon(r.tagId)} size={24}/>
+                </div>
+                {r.note && <div className="note">
+                  {r.note}
+                </div>}
+                <div className="amount">￥{r.amount}</div>
+              </Item>;
+            })}
+          </div>
+        </div>);
+    }
+
+    return (
+      <div className='details'>{inner}</div>
+    );
+  };
+
   return (
     <MyLayout>
       <SelectSection category={selected.category}
-                     date={selected.date}
+                     dateUnit={selected.dateUnit}
                      listVisible={selected.listVisible}
                      onChange={value => onChange(value)}/>
       <Main>
@@ -199,25 +251,7 @@ function Statistics() {
                         value={'12'}
                         map={test}
                         onChange={(value) => {}}/>
-        <div className='details'>
-          {array.map(([date, records], i) =>
-            <div key={i}>
-              <Header>{date}</Header>
-              <div>
-                {records.map((r, index) => {
-                  return <Item key={index}>
-                    <div className="tag">
-                      <Icon name={getIcon(r.tagId)} size={24}/>
-                    </div>
-                    {r.note && <div className="note">
-                      {r.note}
-                    </div>}
-                    <div className="amount">￥{r.amount}</div>
-                  </Item>;
-                })}
-              </div>
-            </div>)}
-        </div>
+        <Detail/>
         <Nav/>
       </Main>
     </MyLayout>

@@ -5,6 +5,7 @@ import Icon from '../../components/Icon';
 import {Center} from '../../components/Center';
 
 const Wrapper = styled.section`
+  flex-shrink: 0;
   font-size: 14px;
   background-color: #ffda44;
   display: flex;
@@ -27,14 +28,14 @@ const Wrapper = styled.section`
 type Value = {
   category: string
 } | {
-  date: string
+  dateUnit: string
 } | {
   listVisible: boolean
 }
 
 type Props = {
   category: string
-  date: string
+  dateUnit: string
   listVisible: boolean
   onChange: (value: Value) => void
 }
@@ -44,7 +45,7 @@ const dateCategoryMap = {'week': '周', 'month': '月', 'year': '年'};
 
 const SelectSection: React.FC<Props> = (props) => {
   type Keys = keyof typeof categoryMap
-  const [dateCategory, setDateCategory] = useState(props.date);
+  const [dateCategory, setDateCategory] = useState(props.dateUnit);
 
   return (
     <Wrapper>
@@ -61,7 +62,7 @@ const SelectSection: React.FC<Props> = (props) => {
                       map={dateCategoryMap}
                       onChange={(value) => {
                         setDateCategory(value);
-                        props.onChange({date: value});
+                        props.onChange({dateUnit: value});
                       }}/>
     </Wrapper>
   );

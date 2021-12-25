@@ -1,17 +1,8 @@
 import {useEffect, useState} from 'react';
 import {useUpdate} from './useUpdate';
 import {Category} from './useTags';
-
-// type NewRecordItem = {
-//   tagIds: number[]
-//   note: string
-//   category: '+' | '-'
-//   amount: number
-// }
-
-// type RecordItem = NewRecordItem & {
-//   createdAt: string // ISO 8601
-// }
+import dayjs from 'dayjs';
+import {getGroup} from '../lib/date';
 
 export type RecordItem = {
   tagId: number
@@ -19,6 +10,14 @@ export type RecordItem = {
   category: Category
   amount: number
   createdAt: string // ISO 8601
+}
+
+export type DataUnit = 'day' | 'week' | 'month' | 'year'
+
+export type Group = {
+  category: Category
+  dateUnit: DataUnit
+  date?: number
 }
 
 // 忽略 RecordItem 中的 createdAt 属性
@@ -49,5 +48,44 @@ export const useRecords = () => {
     return true;
   };
 
-  return {records, addRecord};
+  const getRecords = ({category, dateUnit, date = 0}: Group) => {
+    type Result = { group: string | number, title: string, total?: number, items: RecordItem[] }[];
+
+    const newList = records.filter(r => r.category === category)
+      .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    if (newList.length === 0) {
+      return [] as Result;
+    }
+
+    const {title, group} = getGroup(newList[0].createdAt, dateUnit);
+
+    const result: Result = [{
+      group,
+      title,
+      items: [newList[0]]
+    }];
+
+    for (let i = 1; i < newList.length; i++) {
+      const current = newList[i];
+      const last = result[result.length - 1];
+      const {title, group} = getGroup(current.createdAt, dateUnit);
+
+      if (group === last.group) {
+        last.items.push(current);
+      } else {
+        result.push({
+          group,
+          title,
+          items: [current]
+        });
+      }
+    }
+
+    result.forEach(group => {
+      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
+    });
+    return result;
+  };
+
+  return {records, addRecord, getRecords};
 };

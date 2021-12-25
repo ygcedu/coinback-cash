@@ -23,7 +23,7 @@ const BarWrapper = styled.section`
 
       &.selected {
         background-color: #333;
-        color: white;
+        color: #ffda44;
       }
 
       &:not(:first-child) {
