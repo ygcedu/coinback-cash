@@ -6,32 +6,35 @@ const getGroup = (time: string, dateUnit: DataUnit): { group: string, title: str
   const date = dayjs(time);
   const now = getNowGroup();
 
-  const current = () => {
-    return date.isSame(now[dateUnit], dateUnit);
+  const current = (unit: DataUnit) => {
+    return date.isSame(now[unit], unit);
   };
 
-  const last = () => {
-    return date.isSame(now.time.subtract(1, dateUnit), dateUnit);
+  const last = (unit: DataUnit) => {
+    return date.isSame(now.time.subtract(1, unit), unit);
   };
+
+  const year = date.format('YYYY');
 
   switch (dateUnit) {
     case 'month':
-      if (current()) {
+      if (current(dateUnit)) {
         prefix = '本';
-      } else if (last()) {
+      } else if (last(dateUnit)) {
         prefix = '上';
-      } else {
+      } else if (current('year')) {
         prefix = date.format('MM');
+      } else {
+        prefix = year + '-' + date.format('MM');
       }
       return {
         group: date.format('YYYY-MM'),
         title: prefix + '月'
       };
     case 'year':
-      const year = date.format('YYYY');
-      if (current()) {
+      if (current(dateUnit)) {
         prefix = '今';
-      } else if (last()) {
+      } else if (last(dateUnit)) {
         prefix = '去';
       } else {
         prefix = year;
@@ -46,10 +49,12 @@ const getGroup = (time: string, dateUnit: DataUnit): { group: string, title: str
       const week = weekYear + '-' + weekNum;
       if (now[dateUnit] === week) {
         prefix = '本';
-      } else if (last()) {
+      } else if (last(dateUnit)) {
         prefix = '上';
-      } else {
+      } else if (current('year')) {
         prefix = weekNum;
+      } else {
+        prefix = year + '-' + weekNum;
       }
       return {
         group: week,
@@ -57,20 +62,18 @@ const getGroup = (time: string, dateUnit: DataUnit): { group: string, title: str
       };
     case 'day':
     default:
-      if (current()) {
+      if (current(dateUnit)) {
         prefix = '今';
-      } else if (last()) {
+      } else if (last(dateUnit)) {
         prefix = '昨';
       } else {
-        prefix = date.format('DD');
+        prefix = date.format('MM月DD');
       }
       return {
         group: date.format('YYYY-MM-DD'),
         title: prefix + '日'
       };
   }
-
-
 };
 
 const getNowGroup = () => {
