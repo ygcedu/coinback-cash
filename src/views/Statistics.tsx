@@ -194,7 +194,7 @@ function Statistics() {
   console.log(getRecords({
     category: selected.category as Category,
     dateUnit: selected.dateUnit as DataUnit,
-    date: 5
+    query: 5
   }));
 
   const Detail = () => {

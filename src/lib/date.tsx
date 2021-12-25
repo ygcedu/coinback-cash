@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import {DataUnit} from '../hooks/useRecords';
 
-const getGroup = (time: string, dateUnit: DataUnit): { group: string, title: string } => {
+const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { group: string, title: string } => {
   let prefix: string;
-  const date = dayjs(time);
   const now = getNowGroup();
 
   const current = (unit: DataUnit) => {
@@ -11,7 +10,7 @@ const getGroup = (time: string, dateUnit: DataUnit): { group: string, title: str
   };
 
   const last = (unit: DataUnit) => {
-    return date.isSame(now.time.subtract(1, unit), unit);
+    return date.isSame(now.time.startOf(unit).subtract(1, unit), unit);
   };
 
   const year = date.format('YYYY');
@@ -87,12 +86,21 @@ const getNowGroup = () => {
 
 // 计算日期间隔
 const getScope = (start: string, end: string, dateUnit: DataUnit) => {
-  const {group: startGroup} = getGroup(start, dateUnit);
-  const {group: endGroup} = getGroup(end, dateUnit);
-  return {
-    start: startGroup,
-    end: endGroup
-  };
+  const {group: startGroup} = getGroup(dayjs(start), dateUnit);
+
+  let result = [];
+  let i = 0;
+  let before;
+  let g;
+  do {
+    before = dayjs(end).startOf(dateUnit).subtract(i, dateUnit);
+    const {group, title} = getGroup(before, dateUnit);
+    result.unshift(title);
+    g = group;
+    i++;
+  } while (g !== startGroup);
+
+  return result;
 };
 
 export {getNowGroup, getGroup, getScope};

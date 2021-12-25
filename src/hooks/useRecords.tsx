@@ -17,7 +17,7 @@ export type DataUnit = 'day' | 'week' | 'month' | 'year'
 export type Group = {
   category: Category
   dateUnit: DataUnit
-  date?: number
+  query?: number
 }
 
 // 忽略 RecordItem 中的 createdAt 属性
@@ -48,7 +48,7 @@ export const useRecords = () => {
     return true;
   };
 
-  const getRecords = ({category, dateUnit, date = 0}: Group) => {
+  const getRecords = ({category, dateUnit, query = 0}: Group) => {
     type Result = { group: string | number, title: string, total?: number, items: RecordItem[] }[];
 
     const newList = records.filter(r => r.category === category)
@@ -57,10 +57,10 @@ export const useRecords = () => {
       return [] as Result;
     }
 
-    const {start, end} = getScope(newList[0].createdAt, newList[newList.length - 1].createdAt, dateUnit);
-    console.log(start, end);
+    const scopes = getScope(newList[newList.length - 1].createdAt, newList[0].createdAt, dateUnit);
+    console.log(...scopes);
 
-    const {title, group} = getGroup(newList[0].createdAt, dateUnit);
+    const {title, group} = getGroup(dayjs(newList[0].createdAt).startOf(dateUnit), dateUnit);
 
     const result: Result = [{
       group,
@@ -71,7 +71,7 @@ export const useRecords = () => {
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
-      const {title, group} = getGroup(current.createdAt, dateUnit);
+      const {title, group} = getGroup(dayjs(current.createdAt), dateUnit);
 
       if (group === last.group) {
         last.items.push(current);
