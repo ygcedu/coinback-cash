@@ -10,7 +10,7 @@ export const useRouter = () => {
     if (flag) {
       history.push(url);
     }
-  }, [url]);
+  }, [url, flag, history]);
 
   const redirect = (url: string) => {
     setUrl(url);
