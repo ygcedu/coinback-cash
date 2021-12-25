@@ -7,6 +7,7 @@ import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
 import Nav from '../components/Nav';
+import {SelectBar} from './Tag/SelectBar';
 
 const MyLayout = styled.div`
   height: 100vh;
@@ -62,7 +63,6 @@ const Main = styled.div`
 
   .mask {
     position: absolute;
-    // fixme: pc 端显示，100% 对 fixed 不起作用
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
@@ -70,7 +70,6 @@ const Main = styled.div`
     z-index: 1;
   }
 
-  // fixme: 记录条数多时，会遮住底部导航栏中间的圆形记账图标
   > ul.category-list {
     display: flex;
     flex-direction: column;
@@ -109,11 +108,9 @@ const Main = styled.div`
       }
     }
 
-    // fixme: 移动过程不要遮盖上面的节点（目前不会遮盖）
     &.show {
       top: 0;
 
-      // fixme: 手机端滑动时，遮罩层不会跟着滑动
       & + .mask {
         display: block;
       }
@@ -165,6 +162,20 @@ function Statistics() {
   const categoryMap = {'expense': '支出', 'income': '收入'};
   type Keys = keyof typeof categoryMap
   const [categoryList] = useState<Keys[]>(['expense', 'income']);
+  const test = {
+    '1': '01月',
+    '2': '02月',
+    '3': '03月',
+    '4': '04月',
+    '5': '05月',
+    '6': '06月',
+    '7': '07月',
+    '8': '08月',
+    '9': '09月',
+    '10': '10月',
+    '11': '上月',
+    '12': '本月',
+  };
 
   return (
     <MyLayout>
@@ -184,6 +195,10 @@ function Statistics() {
           )}
         </ul>
         <div className='mask' onClick={() => {onChange({listVisible: false});}}/>
+        <SelectBar type='line'
+                   value={'12'}
+                   map={test}
+                   onChange={(value) => {}}/>
         <div className='details'>
           {array.map(([date, records], i) =>
             <div key={i}>

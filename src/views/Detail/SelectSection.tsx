@@ -56,7 +56,8 @@ const SelectSection: React.FC<Props> = (props) => {
           <Icon name='down' size={16}/>
         </Center>
       </div>
-      <SelectBar value={dateCategory}
+      <SelectBar type='bar'
+                 value={dateCategory}
                  map={dateCategoryMap}
                  onChange={(value) => {
                    setDateCategory(value);
