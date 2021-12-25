@@ -85,4 +85,14 @@ const getNowGroup = () => {
   return {year, month, day, week, time: now};
 };
 
-export {getNowGroup, getGroup};
+// 计算日期间隔
+const getScope = (start: string, end: string, dateUnit: DataUnit) => {
+  const {group: startGroup} = getGroup(start, dateUnit);
+  const {group: endGroup} = getGroup(end, dateUnit);
+  return {
+    start: startGroup,
+    end: endGroup
+  };
+};
+
+export {getNowGroup, getGroup, getScope};

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {useUpdate} from './useUpdate';
 import {Category} from './useTags';
 import dayjs from 'dayjs';
-import {getGroup} from '../lib/date';
+import {getGroup, getScope} from '../lib/date';
 
 export type RecordItem = {
   tagId: number
@@ -56,6 +56,9 @@ export const useRecords = () => {
     if (newList.length === 0) {
       return [] as Result;
     }
+
+    const {start, end} = getScope(newList[0].createdAt, newList[newList.length - 1].createdAt, dateUnit);
+    console.log(start, end);
 
     const {title, group} = getGroup(newList[0].createdAt, dateUnit);
 
