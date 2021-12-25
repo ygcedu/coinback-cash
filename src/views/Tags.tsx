@@ -6,7 +6,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/Button';
 import {Topbar} from './Tag/Topbar';
 import {Center} from '../components/Center';
-import {SelectBar} from './Tag/SelectBar';
+import {VerticalSelect} from './Tag/VerticalSelect';
 
 const TagList = styled.ol`
   font-size: 16px;
@@ -90,11 +90,11 @@ function Tags() {
           <Icon name="left" size={24}/>占位
         </Center>
       </Topbar>
-      <SelectBar value={category}
-                 map={{expense: '支出', income: '收入'}}
-                 onChange={(category) => {
-                   setCategory(category as Category);
-                 }}/>
+      <VerticalSelect value={category}
+                      map={{expense: '支出', income: '收入'}}
+                      onChange={(category) => {
+                        setCategory(category as Category);
+                      }}/>
       <TagList>
         {tagGroup.map(tag =>
           <li key={tag.id}>

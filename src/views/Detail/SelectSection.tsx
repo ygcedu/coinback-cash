@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-import {SelectBar} from '../Tag/SelectBar';
+import {VerticalSelect} from '../Tag/VerticalSelect';
 import Icon from '../../components/Icon';
 import {Center} from '../../components/Center';
 
@@ -56,13 +56,13 @@ const SelectSection: React.FC<Props> = (props) => {
           <Icon name='down' size={16}/>
         </Center>
       </div>
-      <SelectBar type='bar'
-                 value={dateCategory}
-                 map={dateCategoryMap}
-                 onChange={(value) => {
-                   setDateCategory(value);
-                   props.onChange({date: value});
-                 }}/>
+      <VerticalSelect type='bar'
+                      value={dateCategory}
+                      map={dateCategoryMap}
+                      onChange={(value) => {
+                        setDateCategory(value);
+                        props.onChange({date: value});
+                      }}/>
     </Wrapper>
   );
 };

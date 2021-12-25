@@ -7,7 +7,7 @@ import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
 import Nav from '../components/Nav';
-import {SelectBar} from './Tag/SelectBar';
+import {VerticalSelect} from './Tag/VerticalSelect';
 
 const MyLayout = styled.div`
   height: 100vh;
@@ -195,10 +195,10 @@ function Statistics() {
           )}
         </ul>
         <div className='mask' onClick={() => {onChange({listVisible: false});}}/>
-        <SelectBar type='line'
-                   value={'12'}
-                   map={test}
-                   onChange={(value) => {}}/>
+        <VerticalSelect type='line'
+                        value={'12'}
+                        map={test}
+                        onChange={(value) => {}}/>
         <div className='details'>
           {array.map(([date, records], i) =>
             <div key={i}>

@@ -77,7 +77,7 @@ type Props = {
   onChange: (value: string) => void
 }
 
-const SelectBar: React.FC<Props> = (props) => {
+const VerticalSelect: React.FC<Props> = (props) => {
   const [options] = useState<string[]>(Object.keys(props.map));
   const selected = props.value;
 
@@ -106,4 +106,4 @@ const SelectBar: React.FC<Props> = (props) => {
   );
 };
 
-export {SelectBar};
+export {VerticalSelect};
