@@ -19,6 +19,7 @@ const Main = styled.div`
 `;
 
 type Props = {
+  // 必要时控制组件内部样式用，类似于 v-deep
   className?: string
   scrollTop?: number
 }

@@ -6,11 +6,13 @@ import day from 'dayjs';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
-import Layout from '../components/Layout';
+import Nav from '../components/Nav';
 
-const MyLayout = styled(Layout)`
+const MyLayout = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `;
 
 const Item = styled.div`
@@ -51,22 +53,21 @@ const Header = styled.h3`
   font-weight: normal;
 `;
 
-const Wrapper = styled.div`
-  flex: 1;
+const Main = styled.div`
+  flex-grow: 1;
   overflow-y: auto;
   position: relative;
   display: flex;
   flex-direction: column;
-  z-index: 2;
 
   .mask {
-    position: fixed;
+    position: absolute;
     // fixme: pc 端显示，100% 对 fixed 不起作用
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 9;
     display: none;
+    z-index: 1;
   }
 
   // fixme: 记录条数多时，会遮住底部导航栏中间的圆形记账图标
@@ -76,8 +77,8 @@ const Wrapper = styled.div`
     position: absolute;
     width: 100%;
     transition: all 0.25s linear;
-    z-index: 10;
     top: -17%;
+    z-index: 2;
 
     > li {
       //text-align: center;
@@ -117,6 +118,11 @@ const Wrapper = styled.div`
         display: block;
       }
     }
+  }
+
+  .details {
+    flex: 1;
+    overflow-y: auto;
   }
 `;
 
@@ -166,7 +172,7 @@ function Statistics() {
                      date={selected.date}
                      listVisible={selected.listVisible}
                      onChange={value => onChange(value)}/>
-      <Wrapper>
+      <Main>
         <ul className={cs('category-list', selected.listVisible ? 'show' : undefined)}>
           {categoryList.map(c =>
             <li key={c} className={selected.category === c ? 'selected' : ''}
@@ -177,25 +183,28 @@ function Statistics() {
             </li>
           )}
         </ul>
-        <div className='mask'/>
-        {array.map(([date, records], i) =>
-          <div key={i}>
-            <Header>{date}</Header>
-            <div>
-              {records.map((r, index) => {
-                return <Item key={index}>
-                  <div className="tag">
-                    <Icon name={getIcon(r.tagId)} size={24}/>
-                  </div>
-                  {r.note && <div className="note">
-                    {r.note}
-                  </div>}
-                  <div className="amount">￥{r.amount}</div>
-                </Item>;
-              })}
-            </div>
-          </div>)}
-      </Wrapper>
+        <div className='mask' onClick={() => {onChange({listVisible: false});}}/>
+        <div className='details'>
+          {array.map(([date, records], i) =>
+            <div key={i}>
+              <Header>{date}</Header>
+              <div>
+                {records.map((r, index) => {
+                  return <Item key={index}>
+                    <div className="tag">
+                      <Icon name={getIcon(r.tagId)} size={24}/>
+                    </div>
+                    {r.note && <div className="note">
+                      {r.note}
+                    </div>}
+                    <div className="amount">￥{r.amount}</div>
+                  </Item>;
+                })}
+              </div>
+            </div>)}
+        </div>
+        <Nav/>
+      </Main>
     </MyLayout>
   );
 }

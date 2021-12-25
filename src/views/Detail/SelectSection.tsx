@@ -9,8 +9,6 @@ const Wrapper = styled.section`
   background-color: #ffda44;
   display: flex;
   flex-direction: column;
-  position: relative;
-  z-index: 1;
 
   .category {
     text-align: center;
