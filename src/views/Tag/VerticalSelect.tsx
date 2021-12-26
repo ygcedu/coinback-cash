@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useState} from 'react';
+import React from 'react';
 
 const BarWrapper = styled.section`
   display: flex;
@@ -70,24 +70,31 @@ const LineWrapper = styled.section`
     }
 `;
 
+export type ObjectArray = { key: string, value: string }[]
+
 type Props = {
   type?: 'bar' | 'line'
   value: string
-  map: { [key: string]: string }
+  map: ObjectArray
   onChange: (value: string) => void
 }
 
 const VerticalSelect: React.FC<Props> = (props) => {
-  const [options] = useState<string[]>(Object.keys(props.map));
+  // const [options] = useState<string[]>(() => {
+  //   console.log('我变了');
+  //   return props.map.map(item => item.key);
+  // });
+  const options = props.map.map(item => item.key);
   const selected = props.value;
+  // console.log('我重新渲染了');
 
   const Content = () => {
     return (
       <ul>
-        {options.map(c =>
+        {options.map((c, index) =>
           <li key={c} className={selected === c ? 'selected' : ''}
               onClick={() => props.onChange(c)}>
-            <span>{props.map[c]}</span>
+            <span>{props.map[index].value}</span>
           </li>
         )}
       </ul>

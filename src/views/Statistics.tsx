@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {DataUnit, RecordItem, useRecords} from '../hooks/useRecords';
-import {Category, useTags} from '../hooks/useTags';
-import day from 'dayjs';
+import {DataUnit, useRecords} from '../hooks/useRecords';
+import {Category} from '../hooks/useTags';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
@@ -14,44 +13,6 @@ const MyLayout = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-`;
-
-const Item = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background: white;
-  font-size: 18px;
-  line-height: 20px;
-  padding: 10px 16px;
-  border-bottom: 1px solid #ddd;
-
-  > .note {
-    margin-right: auto;
-    margin-left: 16px;
-    color: #999;
-  }
-
-  > .tag,
-  > .note,
-  > .amount {
-    display: flex;
-    align-items: center;
-  }
-
-  > .tag {
-    justify-content: center;
-    width: 1.8em;
-    height: 1.8em;
-    border-radius: 50%;
-    background: #ffda44;
-  }
-`;
-
-const Header = styled.h3`
-  font-size: 16px;
-  line-height: 20px;
-  padding: 10px 16px;
-  font-weight: normal;
 `;
 
 const Main = styled.div`
@@ -132,8 +93,6 @@ const Wrapper = styled.div`
   color: #ccc;
 `;
 
-const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'];
-
 const defaultSelected = {
   category: 'expense',
   dateUnit: 'week',
@@ -148,77 +107,37 @@ function Statistics() {
     setSelected({...selected, ...obj});
   };
 
-  const {records, getRecords} = useRecords();
-  const {getIcon} = useTags();
-  const hash: { [K: string]: RecordItem[] } = {};
-  const selectedRecords = records.filter(r => r.category === selected.category);
-
-  selectedRecords.forEach(r => {
-    const key = day(r.createdAt).format('MM月DD日') + ' ' + week[day(r.createdAt).day()];
-    if (!(key in hash)) {
-      hash[key] = [];
-    }
-    hash[key].push(r);
-  });
-
-  // Object.entries 把对象变成数组
-  const array = Object.entries(hash).sort((a, b) => {
-    if (a[0] === b[0]) return 0;
-    if (a[0] > b[0]) return -1;
-    if (a[0] < b[0]) return 1;
-    return 0;
-  });
+  const {records, sections, getRecords} = useRecords();
+  // 选中的日期分段值
+  const [value, setValue] = useState(sections[sections.length - 1]?.value || '');
+  const [options, setOptions] = useState(sections);
 
   const categoryMap = {'expense': '支出', 'income': '收入'};
   type Keys = keyof typeof categoryMap
   const [categoryList] = useState<Keys[]>(['expense', 'income']);
-  const test = {
-    '1': '01月',
-    '2': '02月',
-    '3': '03月',
-    '4': '04月',
-    '5': '05月',
-    '6': '06月',
-    '7': '07月',
-    '8': '08月',
-    '9': '09月',
-    '10': '10月',
-    '11': '上月',
-    '12': '本月',
-  };
 
-  console.log(getRecords({
-    category: selected.category as Category,
-    dateUnit: selected.dateUnit as DataUnit,
-    query: 5
-  }));
+  useEffect(() => {
+    getRecords({
+      category: selected.category as Category,
+      dateUnit: selected.dateUnit as DataUnit,
+      query: 5
+    });
+
+  }, [selected, records]);// 不可变数据
+
+  useEffect(() => {
+    setValue(sections[sections.length - 1]?.value);
+    setOptions(sections);
+  }, [sections]);
 
   const Detail = () => {
     let inner;
-    if (array.length === 0) {
+    if (true) {
       inner = <Wrapper>
         <Icon name='nodata' size={100}/>
         暂无数据
       </Wrapper>;
-    } else {
-      inner = array.map(([date, records], i) =>
-        <div key={i}>
-          <Header>{date}</Header>
-          <div>
-            {records.map((r, index) => {
-              return <Item key={index}>
-                <div className="tag">
-                  <Icon name={getIcon(r.tagId)} size={24}/>
-                </div>
-                {r.note && <div className="note">
-                  {r.note}
-                </div>}
-                <div className="amount">￥{r.amount}</div>
-              </Item>;
-            })}
-          </div>
-        </div>);
-    }
+    } else {}
 
     return (
       <div className='details'>{inner}</div>
@@ -244,9 +163,9 @@ function Statistics() {
         </ul>
         <div className='mask' onClick={() => {onChange({listVisible: false});}}/>
         <VerticalSelect type='line'
-                        value={'12'}
-                        map={test}
-                        onChange={(value) => {}}/>
+                        value={value}
+                        map={options}
+                        onChange={value => {setValue(value);}}/>
         <Detail/>
         <Nav/>
       </Main>

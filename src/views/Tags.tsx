@@ -91,7 +91,7 @@ function Tags() {
         </Center>
       </Topbar>
       <VerticalSelect value={category}
-                      map={{expense: '支出', income: '收入'}}
+                      map={[{key: 'expense', value: '支出'}, {key: 'income', value: '收入'}]}
                       onChange={(category) => {
                         setCategory(category as Category);
                       }}/>

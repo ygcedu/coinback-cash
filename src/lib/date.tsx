@@ -99,7 +99,7 @@ const getNowGroup = () => {
 };
 
 // 计算日期间隔
-const getScope = (start: string, end: string, dateUnit: DataUnit) => {
+const calcSections = (start: string, end: string, dateUnit: DataUnit) => {
   const {uid: startUid} = getGroup(dayjs(start), dateUnit);
 
   let result = [];
@@ -110,7 +110,7 @@ const getScope = (start: string, end: string, dateUnit: DataUnit) => {
     // week or isoWeek?
     before = dayjs(end).startOf(dateUnit).subtract(i, dateUnit);
     const {uid, title} = getGroup(before, dateUnit);
-    result.unshift(title);
+    result.unshift({key: uid, value: title});
     id = uid;
     i++;
   } while (id !== startUid);
@@ -123,4 +123,4 @@ const localTime = (date: dayjs.Dayjs) => {
   return date.format('YYYY-MM-DDTHH:mm:ssZ[Z]');
 };
 
-export {getNowGroup, getGroup, getScope, localTime};
+export {getNowGroup, getGroup, calcSections, localTime};

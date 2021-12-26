@@ -2,7 +2,8 @@ import {useEffect, useState} from 'react';
 import {useUpdate} from './useUpdate';
 import {Category} from './useTags';
 import dayjs from 'dayjs';
-import {getGroup, getScope} from '../lib/date';
+import {calcSections, getGroup} from '../lib/date';
+import {ObjectArray} from '../views/Tag/VerticalSelect';
 
 export type RecordItem = {
   tagId: number
@@ -24,7 +25,8 @@ export type Group = {
 type NewRecordItem = Omit<RecordItem, 'createdAt'>
 
 export const useRecords = () => {
-  const [records, setRecords] = useState<RecordItem[]>([]);
+  let [records, setRecords] = useState<RecordItem[]>([]);
+  const [sections, setSections] = useState<ObjectArray>([]);
 
   useEffect(() => {
     setRecords(JSON.parse(window.localStorage.getItem('records') || '[]'));
@@ -32,7 +34,7 @@ export const useRecords = () => {
 
   useUpdate(() => {
     window.localStorage.setItem('records', JSON.stringify(records));
-  }, records);
+  }, [records]);
 
   const addRecord = (newRecord: NewRecordItem) => {
     if (newRecord.amount <= 0) {
@@ -50,15 +52,14 @@ export const useRecords = () => {
 
   const getRecords = ({category, dateUnit, query = 0}: Group) => {
     type Result = { uid: string, title: string, total?: number, items: RecordItem[] }[];
-
     const newList = records.filter(r => r.category === category)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
     if (newList.length === 0) {
       return [] as Result;
     }
-
-    const scopes = getScope(newList[newList.length - 1].createdAt, newList[0].createdAt, dateUnit);
-    console.log(...scopes);
+    // 按照开始结束时间，计算所有时间区段
+    const sec = calcSections(newList[newList.length - 1].createdAt, newList[0].createdAt, dateUnit);
+    setSections(sec);
 
     const {title, uid} = getGroup(dayjs(newList[0].createdAt), dateUnit);
 
@@ -90,5 +91,5 @@ export const useRecords = () => {
     return result;
   };
 
-  return {records, addRecord, getRecords};
+  return {records, sections, addRecord, getRecords};
 };
