@@ -42,15 +42,17 @@ const LineWrapper = styled.section`
     overflow-x: auto;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
+    white-space: nowrap;
+    cursor: pointer;
 
     &::-webkit-scrollbar {
       display: none; /* Chrome Safari */
     }
 
     > li {
-      min-width: 3em;
+      flex-shrink: 0;
       text-align: center;
-      padding: 6px 0;
+      padding: 6px 12px;
 
       &.selected > span {
         position: relative;
@@ -80,14 +82,24 @@ type Props = {
 }
 
 const VerticalSelect: React.FC<Props> = (props) => {
-  // const [options] = useState<string[]>(() => {
-  //   console.log('我变了');
-  //   return props.map.map(item => item.key);
-  // });
   const options = props.map.map(item => item.key);
   const selected = props.value;
-  // console.log('我重新渲染了');
 
+  // todo:改变滚轮滚动方向
+  // <ul id='scrollX' onWheel={changeScrollDirection}>
+  // const changeScrollDirection = (e: WheelEvent) => {
+  //   // e.currentTarget.scrollLeft -= e.deltaY;
+  //   var container = document.getElementById('scrollX');
+  //   let left = container!.scrollLeft;
+  //   left -= e.deltaY;
+  //   container!.scrollTo({
+  //     top: 0,
+  //     left,
+  //   });
+  //   console.log(document.getElementById('scrollX')!.scrollLeft);
+  //   e.preventDefault();
+  // };
+  
   const Content = () => {
     return (
       <ul>
