@@ -3,15 +3,11 @@ import styled from 'styled-components';
 import {DataUnit, RecordItem, useRecords} from '../hooks/useRecords';
 import {Category, useTags} from '../hooks/useTags';
 import day from 'dayjs';
-import dayjs from 'dayjs';
-import isoWeek from 'dayjs/plugin/isoWeek';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
 import Nav from '../components/Nav';
 import {VerticalSelect} from './Tag/VerticalSelect';
-
-dayjs.extend(isoWeek);
 
 const MyLayout = styled.div`
   height: 100vh;

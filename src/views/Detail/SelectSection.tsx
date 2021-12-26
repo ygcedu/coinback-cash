@@ -41,7 +41,7 @@ type Props = {
 }
 
 const categoryMap = {'expense': '支出', 'income': '收入'};
-const dateCategoryMap = {'week': '周', 'month': '月', 'year': '年'};
+const dateCategoryMap = {'day': '日', 'week': '周', 'month': '月', 'year': '年'};
 
 const SelectSection: React.FC<Props> = (props) => {
   type Keys = keyof typeof categoryMap

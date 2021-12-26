@@ -1,12 +1,25 @@
 import dayjs from 'dayjs';
 import {DataUnit} from '../hooks/useRecords';
+import weekYear from 'dayjs/plugin/weekYear';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 
-const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { group: string, title: string } => {
+dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
+
+// dayjs.locale('en');
+// 设置星期一为一周的第一天
+dayjs.Ls.en.weekStart = 1;
+
+const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { uid: string, title: string } => {
   let prefix: string;
   const now = getNowGroup();
 
   const current = (unit: DataUnit) => {
-    return date.isSame(now[unit], unit);
+    if (unit === 'week') {
+      return date.isSame(now.time, unit);
+    } else {
+      return date.isSame(now[unit], unit);
+    }
   };
 
   const last = (unit: DataUnit) => {
@@ -27,7 +40,7 @@ const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { group: string, title
         prefix = year + '-' + date.format('MM');
       }
       return {
-        group: date.format('YYYY-MM'),
+        uid: date.format('YYYY-MM'),
         title: prefix + '月'
       };
     case 'year':
@@ -39,24 +52,24 @@ const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { group: string, title
         prefix = year;
       }
       return {
-        group: year,
+        uid: year,
         title: prefix + '年'
       };
     case 'week':
-      const weekNum = date.isoWeek().toString().padStart(2, '0');
-      const weekYear = date.isoWeekYear();
-      const week = weekYear + '-' + weekNum;
+      const weekNum = date.week().toString().padStart(2, '0');
+      const wy = date.weekYear();
+      const week = wy + '-' + weekNum;
       if (now[dateUnit] === week) {
         prefix = '本';
       } else if (last(dateUnit)) {
         prefix = '上';
-      } else if (current('year')) {
+      } else if (current('week')) {
         prefix = weekNum;
       } else {
-        prefix = year + '-' + weekNum;
+        prefix = week;
       }
       return {
-        group: week,
+        uid: week,
         title: prefix + '周'
       };
     case 'day':
@@ -69,7 +82,7 @@ const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { group: string, title
         prefix = date.format('MM月DD');
       }
       return {
-        group: date.format('YYYY-MM-DD'),
+        uid: date.format('YYYY-MM-DD'),
         title: prefix + '日'
       };
   }
@@ -77,30 +90,37 @@ const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { group: string, title
 
 const getNowGroup = () => {
   const now = dayjs();
-  const week = now.isoWeekYear() + '-' + now.isoWeek().toString().padStart(2, '0');
+  const week = now.weekYear() + '-' + now.week().toString().padStart(2, '0');
   const year = now.format('YYYY');
   const month = now.format('YYYY-MM');
   const day = now.format('YYYY-MM-DD');
+  // debugger
   return {year, month, day, week, time: now};
 };
 
 // 计算日期间隔
 const getScope = (start: string, end: string, dateUnit: DataUnit) => {
-  const {group: startGroup} = getGroup(dayjs(start), dateUnit);
+  const {uid: startUid} = getGroup(dayjs(start), dateUnit);
 
   let result = [];
   let i = 0;
   let before;
-  let g;
+  let id;
   do {
+    // week or isoWeek?
     before = dayjs(end).startOf(dateUnit).subtract(i, dateUnit);
-    const {group, title} = getGroup(before, dateUnit);
+    const {uid, title} = getGroup(before, dateUnit);
     result.unshift(title);
-    g = group;
+    id = uid;
     i++;
-  } while (g !== startGroup);
+  } while (id !== startUid);
 
   return result;
 };
 
-export {getNowGroup, getGroup, getScope};
+const localTime = (date: dayjs.Dayjs) => {
+  // format 默认会换算成当地时区时间
+  return date.format('YYYY-MM-DDTHH:mm:ssZ[Z]');
+};
+
+export {getNowGroup, getGroup, getScope, localTime};

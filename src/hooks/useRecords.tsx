@@ -49,7 +49,7 @@ export const useRecords = () => {
   };
 
   const getRecords = ({category, dateUnit, query = 0}: Group) => {
-    type Result = { group: string | number, title: string, total?: number, items: RecordItem[] }[];
+    type Result = { uid: string, title: string, total?: number, items: RecordItem[] }[];
 
     const newList = records.filter(r => r.category === category)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
@@ -60,10 +60,10 @@ export const useRecords = () => {
     const scopes = getScope(newList[newList.length - 1].createdAt, newList[0].createdAt, dateUnit);
     console.log(...scopes);
 
-    const {title, group} = getGroup(dayjs(newList[0].createdAt).startOf(dateUnit), dateUnit);
+    const {title, uid} = getGroup(dayjs(newList[0].createdAt), dateUnit);
 
     const result: Result = [{
-      group,
+      uid,
       title,
       items: [newList[0]]
     }];
@@ -71,13 +71,13 @@ export const useRecords = () => {
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
-      const {title, group} = getGroup(dayjs(current.createdAt), dateUnit);
+      const {title, uid} = getGroup(dayjs(current.createdAt), dateUnit);
 
-      if (group === last.group) {
+      if (uid === last.uid) {
         last.items.push(current);
       } else {
         result.push({
-          group,
+          uid,
           title,
           items: [current]
         });
