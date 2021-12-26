@@ -20,7 +20,7 @@ const MyLayout = styled(Layout)`
 `;
 
 const CategoryWrapper = styled.div`
-  background: white;
+  background: #ffda44;
 `;
 
 const Item = styled.div`
@@ -66,6 +66,7 @@ const Wrapper = styled.div`
     justify-content: center;
     font-size: 20px;
     letter-spacing: 0.2em;
+    padding-bottom: 0;
   }
 `;
 

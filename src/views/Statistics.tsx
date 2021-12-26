@@ -37,7 +37,7 @@ const Main = styled.div`
     position: absolute;
     width: 100%;
     transition: all 0.25s linear;
-    top: -17%;
+    top: -30%;
     z-index: 2;
 
     > li {
@@ -126,7 +126,7 @@ function Statistics() {
   }, [selected, records]);// 不可变数据
 
   useEffect(() => {
-    setValue(sections[sections.length - 1]?.value);
+    setValue(sections[sections.length - 1]?.key);
     setOptions(sections);
   }, [sections]);
 

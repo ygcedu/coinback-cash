@@ -46,13 +46,14 @@ const LineWrapper = styled.section`
     cursor: pointer;
 
     &::-webkit-scrollbar {
-      display: none; /* Chrome Safari */
+      //display: none; /* Chrome Safari */
     }
 
     > li {
       flex-shrink: 0;
       text-align: center;
-      padding: 6px 12px;
+      padding: 6px 0;
+      margin: 0 12px;
 
       &.selected > span {
         position: relative;
@@ -99,13 +100,18 @@ const VerticalSelect: React.FC<Props> = (props) => {
   //   console.log(document.getElementById('scrollX')!.scrollLeft);
   //   e.preventDefault();
   // };
-  
+
   const Content = () => {
     return (
       <ul>
         {options.map((c, index) =>
           <li key={c} className={selected === c ? 'selected' : ''}
-              onClick={() => props.onChange(c)}>
+              onClick={(e) => {
+                props.onChange(c);
+                // fixme：pc 端鼠标点击后滚轮会跳转到头部
+                e.stopPropagation();
+                e.preventDefault();
+              }}>
             <span>{props.map[index].value}</span>
           </li>
         )}
