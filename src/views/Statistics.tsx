@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {DataUnit, useRecords} from '../hooks/useRecords';
-import {Category} from '../hooks/useTags';
+import {DataUnit, Result, useRecords} from '../hooks/useRecords';
+import {Category, useTags} from '../hooks/useTags';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
@@ -93,6 +93,37 @@ const Wrapper = styled.div`
   color: #ccc;
 `;
 
+const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #ddd;
+
+  > .note {
+    margin-right: auto;
+    margin-left: 16px;
+    color: #999;
+  }
+
+  > .tag,
+  > .note,
+  > .amount {
+    display: flex;
+    align-items: center;
+  }
+
+  > .tag {
+    justify-content: center;
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    background: #ffda44;
+  }
+`;
+
 const defaultSelected = {
   category: 'expense',
   dateUnit: 'week',
@@ -111,17 +142,20 @@ function Statistics() {
   // 选中的日期分段值
   const [value, setValue] = useState(sections[sections.length - 1]?.value || '');
   const [options, setOptions] = useState(sections);
+  const [groupRecords, setGroupRecords] = useState<Result>([]);
 
   const categoryMap = {'expense': '支出', 'income': '收入'};
   type Keys = keyof typeof categoryMap
   const [categoryList] = useState<Keys[]>(['expense', 'income']);
 
   useEffect(() => {
-    getRecords({
+    const gRecords = getRecords({
       category: selected.category as Category,
       dateUnit: selected.dateUnit as DataUnit,
       query: 5
     });
+
+    setGroupRecords(gRecords);
 
   }, [selected, records]);// 不可变数据
 
@@ -130,14 +164,40 @@ function Statistics() {
     setOptions(sections);
   }, [sections]);
 
+  const {getIcon} = useTags();
+
+  const selectedRecords = groupRecords.find((item) => item.uid === value);
+  console.log(selectedRecords);
+
   const Detail = () => {
     let inner;
-    if (true) {
+    if (selectedRecords === undefined) {
       inner = <Wrapper>
         <Icon name='nodata' size={100}/>
         暂无数据
       </Wrapper>;
-    } else {}
+    } else {
+      // tagId: number
+      // note: string
+      // category: Category
+      // amount: number
+      // createdAt: string // ISO 8601
+      inner = (
+        <div className='details'>
+          {selectedRecords.items.map((r, index) => {
+            return <Item key={index}>
+              <div className="tag">
+                <Icon name={getIcon(r.tagId)} size={24}/>
+              </div>
+              {r.note && <div className="note">
+                {r.note}
+              </div>}
+              <div className="amount">￥{r.amount}</div>
+            </Item>;
+          })}
+        </div>
+      );
+    }
 
     return (
       <div className='details'>{inner}</div>

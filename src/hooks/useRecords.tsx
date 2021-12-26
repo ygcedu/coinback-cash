@@ -23,6 +23,7 @@ export type Group = {
 
 // 忽略 RecordItem 中的 createdAt 属性
 type NewRecordItem = Omit<RecordItem, 'createdAt'>
+export type Result = { uid: string, title: string, total?: number, items: RecordItem[] }[];
 
 export const useRecords = () => {
   let [records, setRecords] = useState<RecordItem[]>([]);
@@ -51,7 +52,6 @@ export const useRecords = () => {
   };
 
   const getRecords = ({category, dateUnit, query = 0}: Group) => {
-    type Result = { uid: string, title: string, total?: number, items: RecordItem[] }[];
     const newList = records.filter(r => r.category === category)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
     if (newList.length === 0) {
