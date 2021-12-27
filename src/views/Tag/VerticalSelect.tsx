@@ -115,16 +115,25 @@ const VerticalSelect: React.FC<Props> = (props) => {
     );
   };
 
-  return (
-    props.type === 'line' ? (
-      <LineWrapper>
-        <Content/>
-      </LineWrapper>
-    ) : (
-      <BarWrapper>
-        <Content/>
-      </BarWrapper>)
-  );
+  const Wrapper = () => {
+    switch (props.type) {
+      case 'line':
+        return (
+          <LineWrapper>
+            <Content/>
+          </LineWrapper>
+        );
+      case 'bar':
+      default:
+        return (
+          <BarWrapper>
+            <Content/>
+          </BarWrapper>
+        );
+    }
+  };
+
+  return <Wrapper></Wrapper>;
 };
 
 export {VerticalSelect};

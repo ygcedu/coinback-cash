@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {DataUnit, Result, useRecords} from '../hooks/useRecords';
-import {Category, useTags} from '../hooks/useTags';
+import {DateUnit, Result, useRecords} from '../hooks/useRecords';
+import {Category} from '../hooks/useTags';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
 import Nav from '../components/Nav';
 import {VerticalSelect} from './Tag/VerticalSelect';
+import {defaultOption} from '../lib/chart';
+import ReactEcharts from 'echarts-for-react';
 
 const MyLayout = styled.div`
   height: 100vh;
@@ -93,37 +95,6 @@ const Wrapper = styled.div`
   color: #ccc;
 `;
 
-const Item = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background: white;
-  font-size: 18px;
-  line-height: 20px;
-  padding: 10px 16px;
-  border-bottom: 1px solid #ddd;
-
-  > .note {
-    margin-right: auto;
-    margin-left: 16px;
-    color: #999;
-  }
-
-  > .tag,
-  > .note,
-  > .amount {
-    display: flex;
-    align-items: center;
-  }
-
-  > .tag {
-    justify-content: center;
-    width: 1.8em;
-    height: 1.8em;
-    border-radius: 50%;
-    background: #ffda44;
-  }
-`;
-
 const defaultSelected = {
   category: 'expense',
   dateUnit: 'week',
@@ -138,7 +109,7 @@ function Statistics() {
     setSelected({...selected, ...obj});
   };
 
-  const {records, sections, getRecords} = useRecords();
+  const {records, sections, getRecords, getKvPairs} = useRecords();
   // 选中的日期分段值
   const [value, setValue] = useState(sections[sections.length - 1]?.value || '');
   const [options, setOptions] = useState(sections);
@@ -151,10 +122,9 @@ function Statistics() {
   useEffect(() => {
     const gRecords = getRecords({
       category: selected.category as Category,
-      dateUnit: selected.dateUnit as DataUnit,
+      dateUnit: selected.dateUnit as DateUnit,
       query: 5
     });
-
     setGroupRecords(gRecords);
     // eslint-disable-next-line
   }, [selected, records]);// 不可变数据
@@ -164,7 +134,6 @@ function Statistics() {
     setOptions(sections);
   }, [sections]);
 
-  const {getIcon} = useTags();
 
   const selectedRecords = groupRecords.find((item) => item.uid === value);
 
@@ -176,24 +145,18 @@ function Statistics() {
         暂无数据
       </Wrapper>;
     } else {
-      // tagId: number
-      // note: string
-      // category: Category
-      // amount: number
-      // createdAt: string // ISO 8601
+      const bucket = getKvPairs(selectedRecords.items, value, selected.dateUnit as DateUnit);
+      const chartOptions = defaultOption(bucket.keys, bucket.values, '');
+      const total = selectedRecords.total!;
+      const sum = total.toFixed(2);
+      const avg = (total / bucket.keys.length).toFixed(2);
+
       inner = (
         <div className='details'>
-          {selectedRecords.items.map((r, index) => {
-            return <Item key={index}>
-              <div className="tag">
-                <Icon name={getIcon(r.tagId)} size={24}/>
-              </div>
-              {r.note && <div className="note">
-                {r.note}
-              </div>}
-              <div className="amount">￥{r.amount}</div>
-            </Item>;
-          })}
+          <span>总{categoryMap[selected.category as Category]}：{sum}</span>
+          <br/>
+          <span>平均值：{avg}</span>
+          <ReactEcharts option={chartOptions}/>
         </div>
       );
     }

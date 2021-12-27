@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {DataUnit} from '../hooks/useRecords';
+import {DateUnit} from '../hooks/useRecords';
 import weekYear from 'dayjs/plugin/weekYear';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 
@@ -10,11 +10,11 @@ dayjs.extend(weekYear);
 // 设置星期一为一周的第一天
 dayjs.Ls.en.weekStart = 1;
 
-const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { uid: string, title: string } => {
+const getGroup = (date: dayjs.Dayjs, dateUnit: DateUnit): { uid: string, title: string } => {
   let prefix: string;
   const now = getNowGroup();
 
-  const current = (unit: DataUnit) => {
+  const current = (unit: DateUnit) => {
     if (unit === 'week') {
       return date.isSame(now.time, unit);
     } else {
@@ -22,7 +22,7 @@ const getGroup = (date: dayjs.Dayjs, dateUnit: DataUnit): { uid: string, title: 
     }
   };
 
-  const last = (unit: DataUnit) => {
+  const last = (unit: DateUnit) => {
     return date.isSame(now.time.startOf(unit).subtract(1, unit), unit);
   };
 
@@ -99,7 +99,7 @@ const getNowGroup = () => {
 };
 
 // 计算日期间隔
-const calcSections = (start: string, end: string, dateUnit: DataUnit) => {
+const calcSections = (start: string, end: string, dateUnit: DateUnit) => {
   const {uid: startUid} = getGroup(dayjs(start), dateUnit);
 
   let result = [];
@@ -123,4 +123,18 @@ const localTime = (date: dayjs.Dayjs) => {
   return date.format('YYYY-MM-DDTHH:mm:ssZ[Z]');
 };
 
-export {getNowGroup, getGroup, calcSections, localTime};
+const unitFormat = (date: dayjs.Dayjs, unit: DateUnit) => {
+  switch (unit) {
+    case 'year':
+      return date.format('MM月');
+    case 'month':
+      return date.format('DD');
+    case 'week':
+      return date.format('MM-DD');
+    case 'day':
+    default:
+      return date.format('HH时');
+  }
+};
+
+export {getNowGroup, getGroup, calcSections, localTime, unitFormat};

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {useUpdate} from './useUpdate';
 import {Category} from './useTags';
 import dayjs from 'dayjs';
-import {calcSections, getGroup} from '../lib/date';
+import {calcSections, getGroup, unitFormat} from '../lib/date';
 import {ObjectArray} from '../views/Tag/VerticalSelect';
 
 export type RecordItem = {
@@ -13,11 +13,11 @@ export type RecordItem = {
   createdAt: string // ISO 8601
 }
 
-export type DataUnit = 'day' | 'week' | 'month' | 'year'
+export type DateUnit = 'day' | 'week' | 'month' | 'year'
 
 export type Group = {
   category: Category
-  dateUnit: DataUnit
+  dateUnit: DateUnit
   query?: number
 }
 
@@ -91,5 +91,53 @@ export const useRecords = () => {
     return result;
   };
 
-  return {records, sections, addRecord, getRecords};
+  const getKvPairs = (records: RecordItem[], uuid: string, dateUnit: DateUnit) => {
+    let unit: DateUnit;
+    let span: number;
+    let start: dayjs.Dayjs;
+    switch (dateUnit) {
+      case 'year':
+        unit = 'month';
+        span = 12;
+        start = dayjs(uuid);
+        break;
+      case 'month':
+        unit = 'day';
+        span = dayjs(uuid).daysInMonth();
+        start = dayjs(uuid);
+        break;
+      case 'week':
+        const [year, week] = uuid.split('-');
+        start = dayjs(year).week(parseInt(week)).startOf('week');
+        unit = 'day';
+        span = 7;
+        break;
+      default:
+        unit = 'day';
+        span = 1;
+        start = dayjs(uuid);
+        break;
+    }
+    const bucket: { keys: string[], values: number[] } = {keys: [], values: []};
+    let nexts: dayjs.Dayjs[] = [];
+    for (let i = 0; i < span; i++) {
+      nexts.unshift(start.add(i, unit));
+    }
+
+    let i = 0;
+    nexts.forEach((item) => {
+      let sum = 0;
+      for (i; i < records.length; i++) {
+        if (dayjs(records[i].createdAt).valueOf() >= item.valueOf()) {
+          sum += records[i].amount;
+        }
+      }
+      bucket.keys.unshift(unitFormat(item, dateUnit));
+      bucket.values.unshift(sum);
+    });
+
+    return bucket;
+  };
+
+  return {records, sections, addRecord, getRecords, getKvPairs};
 };
