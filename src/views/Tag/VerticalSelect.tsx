@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, {useRef} from 'react';
 
 const BarWrapper = styled.section`
   display: flex;
@@ -44,15 +44,16 @@ const LineWrapper = styled.section`
     -ms-overflow-style: none; /* IE 10+ */
     white-space: nowrap;
     cursor: pointer;
+    //direction: rtl;
 
     &::-webkit-scrollbar {
-      //display: none; /* Chrome Safari */
+      display: none; /* Chrome Safari */
     }
 
     > li {
       flex-shrink: 0;
       text-align: center;
-      padding: 6px 0;
+      padding: 8px 0;
       margin: 0 12px;
 
       &.selected > span {
@@ -86,31 +87,26 @@ const VerticalSelect: React.FC<Props> = (props) => {
   const options = props.map.map(item => item.key);
   const selected = props.value;
 
-  // todo:改变滚轮滚动方向
-  // <ul id='scrollX' onWheel={changeScrollDirection}>
-  // const changeScrollDirection = (e: WheelEvent) => {
-  //   // e.currentTarget.scrollLeft -= e.deltaY;
-  //   var container = document.getElementById('scrollX');
-  //   let left = container!.scrollLeft;
-  //   left -= e.deltaY;
-  //   container!.scrollTo({
-  //     top: 0,
-  //     left,
-  //   });
-  //   console.log(document.getElementById('scrollX')!.scrollLeft);
-  //   e.preventDefault();
-  // };
+  const container = useRef<HTMLUListElement>(null);
+  const changeScrollDirection = (e: any) => {
+    e.currentTarget.scrollLeft += e.deltaY;
+    // if (!container.current) return;
+    // container.current.scrollLeft += e.deltaY;
+    // e.preventDefault();
+  };
 
   const Content = () => {
     return (
-      <ul>
+      <ul ref={container} onWheel={changeScrollDirection}>
         {options.map((c, index) =>
           <li key={c} className={selected === c ? 'selected' : ''}
               onClick={(e) => {
-                props.onChange(c);
                 // fixme：pc 端鼠标点击后滚轮会跳转到头部
-                e.stopPropagation();
+                props.onChange(c);
+                if (!container.current) return;
+                container.current.scrollLeft = e.currentTarget.offsetLeft;
                 e.preventDefault();
+                e.stopPropagation();
               }}>
             <span>{props.map[index].value}</span>
           </li>

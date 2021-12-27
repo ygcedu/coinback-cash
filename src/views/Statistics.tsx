@@ -156,7 +156,7 @@ function Statistics() {
     });
 
     setGroupRecords(gRecords);
-
+    // eslint-disable-next-line
   }, [selected, records]);// 不可变数据
 
   useEffect(() => {
@@ -167,7 +167,6 @@ function Statistics() {
   const {getIcon} = useTags();
 
   const selectedRecords = groupRecords.find((item) => item.uid === value);
-  console.log(selectedRecords);
 
   const Detail = () => {
     let inner;
