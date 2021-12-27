@@ -42,7 +42,7 @@ type Props = {
 
 const categoryMap = {'expense': '支出', 'income': '收入'};
 const dateCategoryMap = [
-  {key: 'day', value: '日'},
+  // {key: 'day', value: '日'},
   {key: 'week', value: '周'},
   {key: 'month', value: '月'},
   {key: 'year', value: '年'}
