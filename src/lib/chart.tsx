@@ -11,11 +11,12 @@ export const defaultOption = (keys: any[], values: any[], name: string): EChartO
       type: 'category',
       data: keys,
       axisTick: {alignWithLabel: true},
-      axisLine: {lineStyle: {color: '#ddd'}},
+      axisLine: {
+        lineStyle: {color: '#ddd'}
+      },
       axisLabel: {
-        formatter: function (value: string, index: number) {
-          return value.substr(5);
-        }
+        formatter: '{value}',
+        color: '#8d8d8d',
       }
     },
     yAxis: {
@@ -24,19 +25,34 @@ export const defaultOption = (keys: any[], values: any[], name: string): EChartO
     },
     series: [{
       symbol: 'circle',// 实心圆
-      symbolSize: 15,
-      itemStyle: {borderWidth: 1, color: '#bbb', borderColor: '#bbb'},
-      // lineStyle: {width: 10},
+      symbolSize: 6,
+      itemStyle: {
+        borderWidth: 1,
+        color: (node: any) => node.value === 0 ? '#fff' : color,
+        borderColor: '#8d8d8d',
+      },
+      lineStyle: {width: 1, color: '#8d8d8d'},
       data: values,
       type: 'line',
-      smooth: true
-    }],
-    tooltip: {
-      show: true,
-      triggerOn: 'click',
-      position: 'top',
-      formatter: '{c}',
-      extraCssText: 'box-shadow: 2px 2px 3px #666'
-    },
+      smooth: false,
+      markLine: {
+        symbol: ['none', 'none'],
+        data: [{
+          name: '平均线',
+          type: 'average',
+        }, {
+          name: '最大值',
+          type: 'max',
+          lineStyle: {type: 'solid'},
+          label: {
+            show: true,
+            position: 'end',
+          }
+        }],
+        lineStyle: {width: 1, color: '#8d8d8d'},
+        silent: true,
+        animation: false
+      }
+    }]
   };
-};
+}

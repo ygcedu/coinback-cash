@@ -126,9 +126,9 @@ const localTime = (date: dayjs.Dayjs) => {
 const unitFormat = (date: dayjs.Dayjs, unit: DateUnit) => {
   switch (unit) {
     case 'year':
-      return date.format('MM月');
+      return date.format('M月');
     case 'month':
-      return date.format('DD');
+      return date.format('D');
     case 'week':
       return date.format('MM-DD');
     case 'day':

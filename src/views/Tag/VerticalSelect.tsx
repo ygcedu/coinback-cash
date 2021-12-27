@@ -63,10 +63,10 @@ const LineWrapper = styled.section`
       &.selected > span::after {
         content: '';
         display: block;
-        height: 3px;
+        height: 5px;
         background: #333;
         position: absolute;
-        bottom: -6px;
+        bottom: -10px;
         width: 100%;
         left: 50%;
         transform: translateX(-50%);

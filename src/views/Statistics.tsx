@@ -83,6 +83,7 @@ const Main = styled.div`
   .details {
     flex-grow: 1;
     overflow-y: auto;
+    padding: 5px;
   }
 `;
 
