@@ -3,6 +3,7 @@ import React from 'react';
 import {Category, useTags} from 'hooks/useTags';
 import Icon from '../../components/Icon';
 import {Link} from 'react-router-dom';
+import {Center} from '../../components/Center';
 
 const Wrapper = styled.section`
   background: #FFFFFF;
@@ -17,17 +18,23 @@ const Wrapper = styled.section`
     margin-right: auto;
 
     > li {
-      background: #f5f5f5;
-      border-radius: 50%;
-      font-size: 14px;
-      margin: 8px 12px;
-      width: 3em;
-      height: 3em;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
 
-      &.selected {
+      div {
+        background: #f5f5f5;
+        border-radius: 50%;
+        font-size: 14px;
+        margin: 8px 12px;
+        width: 3em;
+        height: 3em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &.selected div {
         background: #ffda44;
       }
     }
@@ -59,13 +66,19 @@ const TagsSection: React.FC<Props> = (props) => {
         {tagGroup.map(tag =>
           <li key={tag.id} onClick={() => onToggleTag(tag.id)}
               className={getClass(tag.id)}>
-            <Icon name={tag.icon} size={24}/>
+            <Center>
+              <Icon name={tag.icon} size={24}/>
+            </Center>
+            {tag.name}
           </li>
         )}
         <li>
           <Link to={'/tags/' + props.category}>
-            <Icon name='setting' size={24}/>
+            <Center>
+              <Icon name='setting' size={24}/>
+            </Center>
           </Link>
+          设置
         </li>
       </ol>
     </Wrapper>

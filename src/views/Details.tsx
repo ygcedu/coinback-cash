@@ -25,6 +25,7 @@ const CategoryWrapper = styled.div`
 
 const Item = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background: white;
   font-size: 18px;
@@ -39,13 +40,13 @@ const Item = styled.div`
   }
 
   > .tag,
-  > .note,
   > .amount {
     display: flex;
     align-items: center;
   }
 
   > .tag {
+    flex-shrink: 0;
     justify-content: center;
     width: 1.8em;
     height: 1.8em;
@@ -115,7 +116,7 @@ function Details() {
                   <div className="tag">
                     <Icon name={tag && tag.icon} size={24}/>
                   </div>
-                  {r.note && <div className="note">
+                  {r.note && <div className="note oneLine">
                     {r.note}
                   </div>}
                   <div className="amount">{category === 'expense' ? '-' : '+'}{r.amount}</div>
