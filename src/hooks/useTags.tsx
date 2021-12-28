@@ -89,8 +89,8 @@ const useTags = () => {
     }
   };
   const getIcon = (id: number) => {
-    const tag = tags.filter(t => t.id === id)[0];
-    return tag ? tag.icon : '';
+    return tags.filter(t => t.id === id)[0];
+    // return tag ? tag.icon : '';
   };
   const filterTag = (category: Category) => tags.filter(tag => tag.category === category);
 

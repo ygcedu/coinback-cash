@@ -24,6 +24,7 @@ export type Group = {
 // 忽略 RecordItem 中的 createdAt 属性
 type NewRecordItem = Omit<RecordItem, 'createdAt'>
 export type Result = { uid: string, title: string, total?: number, items: RecordItem[] }[];
+export type RankList = { tagId: number, value: number, percent: number }[];
 
 export const useRecords = () => {
   let [records, setRecords] = useState<RecordItem[]>([]);
@@ -51,7 +52,7 @@ export const useRecords = () => {
     return true;
   };
 
-  const getRecords = ({category, dateUnit, query = 0}: Group) => {
+  const getRecords = ({category, dateUnit}: Group) => {
     const newList = records.filter(r => r.category === category)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
     if (newList.length === 0) {
@@ -118,24 +119,52 @@ export const useRecords = () => {
         start = dayjs(uuid);
         break;
     }
-    const bucket: { keys: string[], values: number[] } = {keys: [], values: []};
+    const bucket: { keys: string[], values: number[], ranks: RankList } = {
+      keys: [],
+      values: [],
+      ranks: []
+    };
     let nexts: dayjs.Dayjs[] = [];
     for (let i = 0; i < span; i++) {
       nexts.unshift(start.add(i, unit));
     }
 
     let i = 0;
+    let tags: { [tagId: string]: number } = {};
+
     nexts.forEach((item) => {
       let sum = 0;
       for (i; i < records.length; i++) {
         if (dayjs(records[i].createdAt).valueOf() >= item.valueOf()) {
           sum += records[i].amount;
+          const total = tags[records[i].tagId];
+          if (total === undefined) {
+            tags[records[i].tagId] = records[i].amount;
+          } else {
+            tags[records[i].tagId] = total + records[i].amount;
+          }
         }
       }
       bucket.keys.unshift(unitFormat(item, dateUnit));
       bucket.values.unshift(sum);
     });
 
+    const total = bucket.values.reduce((sum, value) => {return sum += value;}, 0);
+
+    const ranks = Object.keys(tags).reduce((rankList: RankList, tagId: string) => {
+      const value = tags[tagId];
+      const item = {tagId: parseInt(tagId), value, percent: value / total};
+      const index = rankList.findIndex((item, index) => item.value < value);
+
+      if (index === -1) {
+        rankList.push(item);
+      } else {
+        rankList.splice(index, 0, item);
+      }
+      return rankList;
+    }, []);
+
+    bucket.ranks = ranks;
     return bucket;
   };
 

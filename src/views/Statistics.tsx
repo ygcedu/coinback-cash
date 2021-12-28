@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {DateUnit, Result, useRecords} from '../hooks/useRecords';
-import {Category} from '../hooks/useTags';
+import {Category, useTags} from '../hooks/useTags';
 import Icon from '../components/Icon';
 import {SelectSection} from './Detail/SelectSection';
 import cs from 'classnames';
 import Nav from '../components/Nav';
 import {VerticalSelect} from './Tag/VerticalSelect';
-import {defaultOption} from '../lib/chart';
+import {defaultOption, toPercent} from '../lib/chart';
 import ReactEcharts from 'echarts-for-react';
 
 const MyLayout = styled.div`
@@ -102,6 +102,66 @@ const defaultSelected = {
   listVisible: false
 };
 
+const RankList = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Item = styled.div`
+  display: flex;
+  //justify-content: space-between;
+  background: white;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #ddd;
+
+  > .tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    background: #ffda44;
+    margin-right: 16px;
+  }
+
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    > .label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+
+      > .percent {
+        margin-right: auto;
+        margin-left: 16px;
+        color: #999;
+      }
+
+      > .tag,
+      > .percent,
+      > .amount {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    > .bar {
+      height: 5px;
+      min-width: 2px;
+      background-color: #ffda44;
+      margin: 5px 0;
+      border-radius: 2.5px;
+    }
+  }
+`;
+
 function Statistics() {
   const [selected, setSelected] = useState(defaultSelected);
   type Selected = Partial<typeof selected>;
@@ -123,8 +183,7 @@ function Statistics() {
   useEffect(() => {
     const gRecords = getRecords({
       category: selected.category as Category,
-      dateUnit: selected.dateUnit as DateUnit,
-      query: 5
+      dateUnit: selected.dateUnit as DateUnit
     });
     setGroupRecords(gRecords);
     // eslint-disable-next-line
@@ -137,6 +196,7 @@ function Statistics() {
 
 
   const selectedRecords = groupRecords.find((item) => item.uid === value);
+  const {getIcon} = useTags();
 
   const Detail = () => {
     let inner;
@@ -151,13 +211,40 @@ function Statistics() {
       const total = selectedRecords.total!;
       const sum = total.toFixed(2);
       const avg = (total / bucket.keys.length).toFixed(2);
+      console.log(bucket.ranks);
+      let max = 0;
+      if (bucket.ranks.length !== 0) {
+        max = bucket.ranks[0].value;
+      }
 
       inner = (
         <div className='details'>
           <span>总{categoryMap[selected.category as Category]}：{sum}</span>
           <br/>
           <span>平均值：{avg}</span>
-          <ReactEcharts option={chartOptions}/>
+          <ReactEcharts option={chartOptions} style={{width: '100%', height: '250px'}}/>
+          <h4>支出排行榜</h4>
+          <RankList>
+            {
+              bucket.ranks.map((r, index) => {
+                const tag = getIcon(r.tagId);
+
+                return <Item key={index}>
+                  <div className="tag">
+                    <Icon name={tag.icon} size={24}/>
+                  </div>
+                  <div className='right'>
+                    <div className='label'>
+                      <div className="tag oneLine">{tag.name}</div>
+                      <div className="percent">{toPercent(r.percent)}</div>
+                      <div className="amount">{r.value}</div>
+                    </div>
+                    <div className='bar' style={{width: toPercent(r.value / max)}}/>
+                  </div>
+                </Item>;
+              })
+            }
+          </RankList>
         </div>
       );
     }

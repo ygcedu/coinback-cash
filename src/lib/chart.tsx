@@ -56,3 +56,9 @@ export const defaultOption = (keys: any[], values: any[], name: string): EChartO
     }]
   };
 }
+
+export const toPercent = (value: number) => {
+  let str = Number(value * 100).toFixed(1);
+  str += '%';
+  return str;
+};

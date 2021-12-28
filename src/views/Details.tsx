@@ -98,7 +98,7 @@ function Details() {
   return (
     <MyLayout>
       <Wrapper>
-        <Topbar>记账本</Topbar>
+        <Topbar>币归记账</Topbar>
       </Wrapper>
       <CategoryWrapper>
         <CategorySection value={category}
@@ -112,7 +112,7 @@ function Details() {
               {records.map((r, index) => {
                 return <Item key={index}>
                   <div className="tag">
-                    <Icon name={getIcon(r.tagId)} size={24}/>
+                    <Icon name={getIcon(r.tagId).icon} size={24}/>
                   </div>
                   {r.note && <div className="note">
                     {r.note}
