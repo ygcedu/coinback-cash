@@ -211,7 +211,7 @@ function Statistics() {
       const total = selectedRecords.total!;
       const sum = total.toFixed(2);
       const avg = (total / bucket.keys.length).toFixed(2);
-      console.log(bucket.ranks);
+      const type = categoryMap[selected.category as Category];
       let max = 0;
       if (bucket.ranks.length !== 0) {
         max = bucket.ranks[0].value;
@@ -219,11 +219,11 @@ function Statistics() {
 
       inner = (
         <div className='details'>
-          <span>总{categoryMap[selected.category as Category]}：{sum}</span>
+          <span>总{type}：{sum}</span>
           <br/>
           <span>平均值：{avg}</span>
           <ReactEcharts option={chartOptions} style={{width: '100%', height: '250px'}}/>
-          <h4>支出排行榜</h4>
+          <h4>{type}排行榜</h4>
           <RankList>
             {
               bucket.ranks.map((r, index) => {
@@ -231,11 +231,11 @@ function Statistics() {
 
                 return <Item key={index}>
                   <div className="tag">
-                    <Icon name={tag.icon} size={24}/>
+                    <Icon name={tag && tag.icon} size={24}/>
                   </div>
                   <div className='right'>
                     <div className='label'>
-                      <div className="tag oneLine">{tag.name}</div>
+                      <div className="tag oneLine">{tag && tag.name}</div>
                       <div className="percent">{toPercent(r.percent)}</div>
                       <div className="amount">{r.value}</div>
                     </div>

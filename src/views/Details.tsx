@@ -84,7 +84,7 @@ function Details() {
     if (!(key in hash)) {
       hash[key] = [];
     }
-    hash[key].push(r);
+    hash[key].unshift(r);
   });
 
   // Object.entries 把对象变成数组
@@ -110,14 +110,15 @@ function Details() {
             <Header>{date}</Header>
             <div>
               {records.map((r, index) => {
+                const tag = getIcon(r.tagId);
                 return <Item key={index}>
                   <div className="tag">
-                    <Icon name={getIcon(r.tagId).icon} size={24}/>
+                    <Icon name={tag && tag.icon} size={24}/>
                   </div>
                   {r.note && <div className="note">
                     {r.note}
                   </div>}
-                  <div className="amount">￥{r.amount}</div>
+                  <div className="amount">{category === 'expense' ? '-' : '+'}{r.amount}</div>
                 </Item>;
               })}
             </div>
