@@ -71,7 +71,7 @@ const useTags = () => {
       if (index === -1) {
         setTags([...tags, {id, icon, name, category}]);
       } else {
-        setTags([...tags, {id: createId(), icon, name, category}]);
+        setTags([...tags, {id: createId('tag'), icon, name, category}]);
       }
     }
   };

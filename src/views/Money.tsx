@@ -30,6 +30,7 @@ const MyLayout = styled(Layout)`
 `;
 
 const defaultFormData = {
+  id: -1,
   tagId: -2,
   note: '',
   category: 'expense' as Category,

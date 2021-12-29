@@ -16,6 +16,42 @@ const MyLayout = styled(Layout)`
     // 只中间区域滚动
     flex: 1;
     overflow-y: auto;
+
+    .scroll-snap {
+      display: flex;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      font-size: 16px;
+      position: relative;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      > .delete {
+        white-space: nowrap;
+        border: 0;
+        padding: 0;
+        color: #fff;
+        background-color: #eb4646;
+        width: 4em;
+        height: calc(1.8em + 20px);
+        padding: 10px;
+        position: absolute;
+        left: 100%;
+        outline: 0;
+      }
+
+      > .content {
+        flex: 0 0 100vw;
+        scroll-snap-align: start;
+      }
+
+      > .space {
+        flex: 0 0 4em;
+        scroll-snap-align: end;
+      }
+    }
   }
 `;
 
@@ -28,7 +64,7 @@ const Item = styled.div`
   align-items: center;
   justify-content: space-between;
   background: white;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
   padding: 10px 16px;
   border-bottom: 1px solid #ddd;
@@ -75,7 +111,7 @@ const week = ['星期一', '星期二', '星期三', '星期四', '星期五', '
 
 function Details() {
   const [category, setCategory] = useState<'expense' | 'income'>('expense');
-  const {records} = useRecords();
+  const {records, removeRecord} = useRecords();
   const {getIcon} = useTags();
   const hash: { [K: string]: RecordItem[] } = {};
   const selectedRecords = records.filter(r => r.category === category);
@@ -112,15 +148,25 @@ function Details() {
             <div>
               {records.map((r, index) => {
                 const tag = getIcon(r.tagId);
-                return <Item key={index}>
-                  <div className="tag">
-                    <Icon name={tag && tag.icon} size={24}/>
+                return (
+                  <div className='scroll-snap' key={index}>
+                    <button className="delete" onClick={() => {
+                      console.log(index);
+                      removeRecord(r.id);
+                    }}>删除
+                    </button>
+                    <Item className='content'>
+                      <div className="tag">
+                        <Icon name={tag && tag.icon} size={24}/>
+                      </div>
+                      {r.note && <div className="note oneLine">
+                        {r.note}
+                      </div>}
+                      <div className="amount">{category === 'expense' ? '-' : '+'}{r.amount}</div>
+                    </Item>
+                    <s className="space"></s>
                   </div>
-                  {r.note && <div className="note oneLine">
-                    {r.note}
-                  </div>}
-                  <div className="amount">{category === 'expense' ? '-' : '+'}{r.amount}</div>
-                </Item>;
+                );
               })}
             </div>
           </div>)}

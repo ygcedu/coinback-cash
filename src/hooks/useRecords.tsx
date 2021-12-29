@@ -4,8 +4,10 @@ import {Category} from './useTags';
 import dayjs from 'dayjs';
 import {calcSections, getGroup, unitFormat} from '../lib/date';
 import {ObjectArray} from '../views/Tag/VerticalSelect';
+import {createId} from '../lib/createId';
 
 export type RecordItem = {
+  id: number
   tagId: number
   note: string
   category: Category
@@ -47,9 +49,16 @@ export const useRecords = () => {
       alert('请选择标签');
       return false;
     }
-    const record = {...newRecord, createdAt: (new Date()).toISOString()};
+    const record = {...newRecord, createdAt: (new Date()).toISOString(), id: createId('record')};
     setRecords([...records, record]);
     return true;
+  };
+
+  const removeRecord = (index: number) => {
+    const i = records.findIndex(item => item.id === index);
+    const newRecords = records.slice(0);
+    newRecords.splice(i, 1);
+    setRecords(newRecords);
   };
 
   const getRecords = ({category, dateUnit}: Group) => {
@@ -171,5 +180,5 @@ export const useRecords = () => {
     return bucket;
   };
 
-  return {records, sections, addRecord, getRecords, getKvPairs};
+  return {records, sections, addRecord, getRecords, getKvPairs, removeRecord};
 };
