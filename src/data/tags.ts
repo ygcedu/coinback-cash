@@ -9,7 +9,7 @@ export const defaultTags = [
   {id: 8, icon: 'yundong', name: '运动', category: 'expense'},
   {id: 9, icon: 'yule', name: '娱乐', category: 'expense'},
   {id: 10, icon: 'tongxun', name: '通讯', category: 'expense'},
-  {id: 11, icon: 'fushi', name: '服饰', category: 'expense'},
+  {id: 11, icon: 'yifu', name: '衣服', category: 'expense'},
   {id: 12, icon: 'meirong', name: '美容', category: 'expense'},
   {id: 13, icon: 'zhufang', name: '住房', category: 'expense'},
   {id: 14, icon: 'jujia', name: '居家', category: 'expense'},

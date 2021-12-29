@@ -23,8 +23,6 @@ export type Group = {
   query?: number
 }
 
-// 忽略 RecordItem 中的 createdAt 属性
-type NewRecordItem = Omit<RecordItem, 'createdAt'>
 export type Result = { uid: string, title: string, total?: number, items: RecordItem[] }[];
 export type RankList = { tagId: number, value: number, percent: number }[];
 
@@ -40,7 +38,7 @@ export const useRecords = () => {
     window.localStorage.setItem('records', JSON.stringify(records));
   }, [records]);
 
-  const addRecord = (newRecord: NewRecordItem) => {
+  const addRecord = (newRecord: RecordItem) => {
     if (newRecord.amount <= 0) {
       alert('请输入金额');
       return false;
@@ -49,7 +47,12 @@ export const useRecords = () => {
       alert('请选择标签');
       return false;
     }
-    const record = {...newRecord, createdAt: (new Date()).toISOString(), id: createId('record')};
+    let record;
+    if (newRecord.createdAt === '') {
+      record = {...newRecord, createdAt: (new Date()).toISOString(), id: createId('record')};
+    } else {
+      record = {...newRecord, createdAt: (new Date(newRecord.createdAt)).toISOString(), id: createId('record')};
+    }
     setRecords([...records, record]);
     return true;
   };

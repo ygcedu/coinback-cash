@@ -24,7 +24,7 @@ const useTags = () => {
         {id: 4, icon: 'jiaotong', name: '交通', category: 'expense'},
         {id: 8, icon: 'yundong', name: '运动', category: 'expense'},
         {id: 9, icon: 'yule', name: '娱乐', category: 'expense'},
-        {id: 11, icon: 'fushi', name: '服饰', category: 'expense'},
+        {id: 11, icon: 'yifu', name: '衣服', category: 'expense'},
         {id: 13, icon: 'zhufang', name: '住房', category: 'expense'},
         {id: 15, icon: 'yuer', name: '育儿', category: 'expense'},
         {id: 18, icon: 'lvxing', name: '旅行', category: 'expense'},

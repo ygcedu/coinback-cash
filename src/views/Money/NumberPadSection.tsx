@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import {Wrapper} from './NumberPadSection/Wrapper';
 import {generateOutput} from './NumberPadSection/generateOutput';
 import Icon from '../../components/Icon';
+import {DatePicker} from './DatePicker';
 
 type Props = {
   value: number,
   onChange: (value: number) => void,
   onOk?: () => void;
+  onDateSet: (value: string) => void
 }
 
 const NumberPadSection: React.FC<Props> = (props) => {
@@ -38,28 +40,39 @@ const NumberPadSection: React.FC<Props> = (props) => {
     }
   };
 
+  const [date, setDate] = useState('今天');
+
   return (
     <Wrapper>
       <div className="output">
         {output}
       </div>
       <div className="pad clearfix" onClick={onClickButtonWrapper}>
-        <button value='1'>1</button>
-        <button value='2'>2</button>
-        <button value='3'>3</button>
-        <button value='delete'>
-          <Icon name="delete" value='delete' size={24}/>
+        <button value='7'>7</button>
+        <button value='8'>8</button>
+        <button value='9'>9</button>
+        <button value='date' className='date'>
+          <div className='today oneLine'>
+            {date === '今天' ? <><Icon name='date' size={24}/>{date}</> : date}
+          </div>
+          <DatePicker onChange={(value) => {
+            props.onDateSet(value);
+            setDate(value);
+          }}/>
         </button>
         <button value='4'>4</button>
         <button value='5'>5</button>
         <button value='6'>6</button>
         <button value='clear'>清空</button>
-        <button value='7'>7</button>
-        <button value='8'>8</button>
-        <button value='9'>9</button>
+        <button value='1'>1</button>
+        <button value='2'>2</button>
+        <button value='3'>3</button>
         <button value='ok' className="ok highlight">完成</button>
-        <button value='0' className="zero">0</button>
         <button value='.' className="dot">.</button>
+        <button value='0' className="zero">0</button>
+        <button value='delete'>
+          <Icon name="delete" value='delete' size={24}/>
+        </button>
       </div>
     </Wrapper>
   );

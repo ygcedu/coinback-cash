@@ -34,7 +34,8 @@ const defaultFormData = {
   tagId: -2,
   note: '',
   category: 'expense' as Category,
-  amount: 0
+  amount: 0,
+  createdAt: ''
 };
 
 const CategoryWrapper = styled.div`
@@ -77,6 +78,7 @@ function Money() {
                      onChange={note => onChange({note})}/>
         <NumberPadSection value={selected.amount}
                           onChange={amount => onChange({amount})}
+                          onDateSet={date => onChange({createdAt: date})}
                           onOk={submit}/>
       </div>
     </MyLayout>

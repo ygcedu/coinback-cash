@@ -34,16 +34,33 @@ const Wrapper = styled.section`
         float: right;
       }
 
-      &.zero {
-        width: 50%;
-      }
-
       &:nth-child(4n) {
         border-right: none;
       }
 
       &.highlight {
         background-color: #ffda44;
+      }
+
+      &.date {
+        position: relative;
+
+        .today {
+          width: 100%;
+          height: 100%;
+          background-color: #f3f3f3;
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+
+          svg {
+            margin-right: 0.5em;
+          }
+        }
       }
     }
   }

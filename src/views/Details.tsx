@@ -158,9 +158,9 @@ function Details() {
                       <div className="tag">
                         <Icon name={tag && tag.icon} size={24}/>
                       </div>
-                      {r.note && <div className="note oneLine">
-                        {r.note}
-                      </div>}
+                      <div className="note oneLine">
+                        {r.note === '' ? (tag && tag.name) : r.note}
+                      </div>
                       <div className="amount">{category === 'expense' ? '-' : '+'}{r.amount}</div>
                     </Item>
                     <s className="space"></s>
