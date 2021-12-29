@@ -144,7 +144,6 @@ export const useRecords = () => {
     nexts.forEach((item) => {
       let sum = 0;
       for (i; i < records.length; i++) {
-        console.log(records[i].createdAt, item.format('YYYY-MM-DD'));
         if (dayjs(records[i].createdAt).valueOf() >= item.valueOf()) {
           sum += records[i].amount;
           const total = tags[records[i].tagId];

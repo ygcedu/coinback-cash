@@ -151,7 +151,6 @@ function Details() {
                 return (
                   <div className='scroll-snap' key={index}>
                     <button className="delete" onClick={() => {
-                      console.log(index);
                       removeRecord(r.id);
                     }}>删除
                     </button>

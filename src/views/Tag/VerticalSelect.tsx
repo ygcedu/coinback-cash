@@ -63,15 +63,16 @@ const LineWrapper = styled.section`
       &.selected > span::after {
         content: '';
         display: block;
-        height: 5px;
+        height: 3px;
         background: #333;
         position: absolute;
-        bottom: -10px;
+        bottom: -8px;
         width: 100%;
         left: 50%;
         transform: translateX(-50%);
       }
     }
+  }
 `;
 
 export type ObjectArray = { key: string, value: string }[]
@@ -103,10 +104,11 @@ const VerticalSelect: React.FC<Props> = (props) => {
               onClick={(e) => {
                 // fixme：pc 端鼠标点击后滚轮会跳转到头部
                 props.onChange(c);
-                if (!container.current) return;
-                container.current.scrollLeft = e.currentTarget.offsetLeft;
-                e.preventDefault();
-                e.stopPropagation();
+                // e.currentTarget.scrollIntoView({inline: 'nearest'});
+                // if (!container.current) return;
+                // container.current.scrollLeft = e.currentTarget.offsetLeft;
+                // e.preventDefault();
+                // e.stopPropagation();
               }}>
             <span>{props.map[index].value}</span>
           </li>
