@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/coinback-cash-website/static/css/main.b8b0ce5b.chunk.css",
-    "main.js": "/coinback-cash-website/static/js/main.46fdc728.chunk.js",
-    "main.js.map": "/coinback-cash-website/static/js/main.46fdc728.chunk.js.map",
-    "runtime-main.js": "/coinback-cash-website/static/js/runtime-main.31303664.js",
-    "runtime-main.js.map": "/coinback-cash-website/static/js/runtime-main.31303664.js.map",
-    "static/js/2.f578e719.chunk.js": "/coinback-cash-website/static/js/2.f578e719.chunk.js",
-    "static/js/2.f578e719.chunk.js.map": "/coinback-cash-website/static/js/2.f578e719.chunk.js.map",
-    "index.html": "/coinback-cash-website/index.html",
-    "static/css/main.b8b0ce5b.chunk.css.map": "/coinback-cash-website/static/css/main.b8b0ce5b.chunk.css.map",
-    "static/js/2.f578e719.chunk.js.LICENSE.txt": "/coinback-cash-website/static/js/2.f578e719.chunk.js.LICENSE.txt"
+    "main.css": "/coinback-cash/static/css/main.b8b0ce5b.chunk.css",
+    "main.js": "/coinback-cash/static/js/main.46fdc728.chunk.js",
+    "main.js.map": "/coinback-cash/static/js/main.46fdc728.chunk.js.map",
+    "runtime-main.js": "/coinback-cash/static/js/runtime-main.9edb1392.js",
+    "runtime-main.js.map": "/coinback-cash/static/js/runtime-main.9edb1392.js.map",
+    "static/js/2.4f3c9924.chunk.js": "/coinback-cash/static/js/2.4f3c9924.chunk.js",
+    "static/js/2.4f3c9924.chunk.js.map": "/coinback-cash/static/js/2.4f3c9924.chunk.js.map",
+    "index.html": "/coinback-cash/index.html",
+    "static/css/main.b8b0ce5b.chunk.css.map": "/coinback-cash/static/css/main.b8b0ce5b.chunk.css.map",
+    "static/js/2.4f3c9924.chunk.js.LICENSE.txt": "/coinback-cash/static/js/2.4f3c9924.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.31303664.js",
-    "static/js/2.f578e719.chunk.js",
+    "static/js/runtime-main.9edb1392.js",
+    "static/js/2.4f3c9924.chunk.js",
     "static/css/main.b8b0ce5b.chunk.css",
     "static/js/main.46fdc728.chunk.js"
   ]
