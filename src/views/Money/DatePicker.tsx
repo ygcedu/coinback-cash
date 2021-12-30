@@ -17,10 +17,7 @@ const Wrapper = styled.div`
     -webkit-appearance: none;
     background-color: transparent;
     color: transparent;
-
-    &:active {
-      color: transparent;
-    }
+    opacity: 0;
 
     &::-webkit-calendar-picker-indicator {
       position: absolute;

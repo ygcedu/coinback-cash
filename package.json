@@ -1,7 +1,7 @@
 {
-  "name": "morney-react",
+  "name": "coinback-cash",
   "version": "0.1.0",
-  "homepage": "https://ygcedu.github.io/coinback_react-website/",
+  "homepage": "https://ygcedu.github.io/coinback-cash/",
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
