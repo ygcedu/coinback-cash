@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/coinback-cash/static/css/main.b8b0ce5b.chunk.css",
-    "main.js": "/coinback-cash/static/js/main.71f1b7cd.chunk.js",
-    "main.js.map": "/coinback-cash/static/js/main.71f1b7cd.chunk.js.map",
+    "main.js": "/coinback-cash/static/js/main.f7dea01d.chunk.js",
+    "main.js.map": "/coinback-cash/static/js/main.f7dea01d.chunk.js.map",
     "runtime-main.js": "/coinback-cash/static/js/runtime-main.9edb1392.js",
     "runtime-main.js.map": "/coinback-cash/static/js/runtime-main.9edb1392.js.map",
-    "static/js/2.4f3c9924.chunk.js": "/coinback-cash/static/js/2.4f3c9924.chunk.js",
-    "static/js/2.4f3c9924.chunk.js.map": "/coinback-cash/static/js/2.4f3c9924.chunk.js.map",
+    "static/js/2.47678701.chunk.js": "/coinback-cash/static/js/2.47678701.chunk.js",
+    "static/js/2.47678701.chunk.js.map": "/coinback-cash/static/js/2.47678701.chunk.js.map",
     "index.html": "/coinback-cash/index.html",
     "static/css/main.b8b0ce5b.chunk.css.map": "/coinback-cash/static/css/main.b8b0ce5b.chunk.css.map",
-    "static/js/2.4f3c9924.chunk.js.LICENSE.txt": "/coinback-cash/static/js/2.4f3c9924.chunk.js.LICENSE.txt"
+    "static/js/2.47678701.chunk.js.LICENSE.txt": "/coinback-cash/static/js/2.47678701.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9edb1392.js",
-    "static/js/2.4f3c9924.chunk.js",
+    "static/js/2.47678701.chunk.js",
     "static/css/main.b8b0ce5b.chunk.css",
-    "static/js/main.71f1b7cd.chunk.js"
+    "static/js/main.f7dea01d.chunk.js"
   ]
 }
