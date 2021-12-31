@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {CategorySection} from './Money/CategorySection';
 import styled from 'styled-components';
 import {RecordItem, useRecords} from '../hooks/useRecords';
@@ -23,6 +23,7 @@ const MyLayout = styled(Layout)`
       scroll-snap-type: x mandatory;
       font-size: 16px;
       position: relative;
+      scroll-behavior: smooth;
 
       &::-webkit-scrollbar {
         display: none;
@@ -31,11 +32,10 @@ const MyLayout = styled(Layout)`
       > .delete {
         white-space: nowrap;
         border: 0;
-        padding: 0;
         color: #fff;
         background-color: #eb4646;
         width: 4em;
-        height: calc(1.8em + 20px);
+        height: calc(30px + 20px);
         padding: 10px;
         position: absolute;
         left: 100%;
@@ -61,6 +61,7 @@ const CategoryWrapper = styled.div`
 
 const Item = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   background: white;
@@ -73,6 +74,7 @@ const Item = styled.div`
     margin-right: auto;
     margin-left: 16px;
     color: #999;
+    flex: 1;
   }
 
   > .tag,
@@ -84,8 +86,8 @@ const Item = styled.div`
   > .tag {
     flex-shrink: 0;
     justify-content: center;
-    width: 1.8em;
-    height: 1.8em;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: #ffda44;
   }
@@ -132,6 +134,8 @@ function Details() {
     return 0;
   });
 
+  const container = useRef<Array<HTMLDivElement | null>>([]);
+
   return (
     <MyLayout>
       <Wrapper>
@@ -149,14 +153,21 @@ function Details() {
               {records.map((r, index) => {
                 const tag = getIcon(r.tagId);
                 return (
-                  <div className='scroll-snap' key={index}>
+                  <div className='scroll-snap' key={r.id} ref={el => container.current.push(el)}
+                       onTouchStart={(e) => {
+                         container.current.forEach((item) => {
+                           if (item && e.currentTarget !== item) {
+                             item.scrollLeft = 0;
+                           }
+                         });
+                       }}>
                     <button className="delete" onClick={() => {
                       removeRecord(r.id);
                     }}>删除
                     </button>
                     <Item className='content'>
                       <div className="tag">
-                        <Icon name={tag && tag.icon} size={24}/>
+                        <Icon name={tag && tag.icon} size={20}/>
                       </div>
                       <div className="note oneLine">
                         {r.note === '' ? (tag && tag.name) : r.note}
