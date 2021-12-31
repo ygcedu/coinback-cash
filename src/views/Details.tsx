@@ -43,7 +43,7 @@ const MyLayout = styled(Layout)`
       }
 
       > .content {
-        flex: 0 0 100vw;
+        flex: 0 0 100%;
         scroll-snap-align: start;
       }
 

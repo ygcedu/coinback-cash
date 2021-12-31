@@ -1,5 +1,5 @@
 let tagId = parseInt(window.localStorage.getItem('tagIdMax') || '100');
-let recordId = parseInt(window.localStorage.getItem('recordIdMax') || '0');
+let recordId = parseInt(window.localStorage.getItem('recordIdMax') || '100');
 
 const createId = (name: 'tag' | 'record'): number => {
   switch (name) {

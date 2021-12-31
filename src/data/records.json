@@ -1,0 +1,146 @@
+[
+  {
+    "id": 5,
+    "tagId": 3,
+    "note": "购置生活用品",
+    "category": "expense",
+    "amount": 189.5,
+    "createdAt": "2020-06-12T00:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "tagId": 2,
+    "note": "陪女朋友逛街",
+    "category": "expense",
+    "amount": 869.6,
+    "createdAt": "2020-10-14T00:00:00.000Z"
+  },
+  {
+    "id": 7,
+    "tagId": 33,
+    "note": "",
+    "category": "income",
+    "amount": 12134.5,
+    "createdAt": "2021-08-15T00:00:00.000Z"
+  },
+  {
+    "id": 8,
+    "tagId": 33,
+    "note": "",
+    "category": "income",
+    "amount": 11256.5,
+    "createdAt": "2021-10-15T00:00:00.000Z"
+  },
+  {
+    "id": 9,
+    "tagId": 13,
+    "note": "还房贷",
+    "category": "expense",
+    "amount": 6542.6,
+    "createdAt": "2021-12-04T00:00:00.000Z"
+  },
+  {
+    "id": 10,
+    "tagId": 15,
+    "note": "买奶粉",
+    "category": "expense",
+    "amount": 523,
+    "createdAt": "2021-12-02T00:00:00.000Z"
+  },
+  {
+    "id": 11,
+    "tagId": 4,
+    "note": "出差打的垫付",
+    "category": "expense",
+    "amount": 45,
+    "createdAt": "2021-11-11T00:00:00.000Z"
+  },
+  {
+    "id": 12,
+    "tagId": 11,
+    "note": "",
+    "category": "expense",
+    "amount": 315,
+    "createdAt": "2021-07-08T00:00:00.000Z"
+  },
+  {
+    "id": 13,
+    "tagId": 9,
+    "note": "跟朋友去KTV放松一下",
+    "category": "expense",
+    "amount": 120,
+    "createdAt": "2021-07-14T00:00:00.000Z"
+  },
+  {
+    "id": 14,
+    "tagId": 18,
+    "note": "去云南旅游飞机票",
+    "category": "expense",
+    "amount": 2136,
+    "createdAt": "2020-09-18T00:00:00.000Z"
+  },
+  {
+    "id": 15,
+    "tagId": 22,
+    "note": "《你不知道的JavaScript》（上卷）",
+    "category": "expense",
+    "amount": 36,
+    "createdAt": "2021-09-07T00:00:00.000Z"
+  },
+  {
+    "id": 16,
+    "tagId": 2,
+    "note": "换手机",
+    "category": "expense",
+    "amount": 5899,
+    "createdAt": "2021-06-04T00:00:00.000Z"
+  },
+  {
+    "id": 17,
+    "tagId": 35,
+    "note": "股票收益",
+    "category": "income",
+    "amount": 513,
+    "createdAt": "2021-12-31T11:33:38.809Z"
+  },
+  {
+    "id": 18,
+    "tagId": 36,
+    "note": "领导发红包",
+    "category": "income",
+    "amount": 200,
+    "createdAt": "2021-12-31T11:34:08.243Z"
+  },
+  {
+    "id": 19,
+    "tagId": 33,
+    "note": "",
+    "category": "income",
+    "amount": 11368,
+    "createdAt": "2021-11-15T00:00:00.000Z"
+  },
+  {
+    "id": 20,
+    "tagId": 33,
+    "note": "",
+    "category": "income",
+    "amount": 11236,
+    "createdAt": "2021-09-15T00:00:00.000Z"
+  },
+  {
+    "id": 21,
+    "tagId": 8,
+    "note": "游泳",
+    "category": "expense",
+    "amount": 34,
+    "createdAt": "2021-12-31T11:36:15.136Z"
+  },
+  {
+    "id": 22,
+    "tagId": 1,
+    "note": "跟同事聚餐",
+    "category": "expense",
+    "amount": 89,
+    "createdAt": "2021-12-31T11:36:47.322Z"
+  }
+]

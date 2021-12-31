@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import {calcSections, getGroup, unitFormat} from '../lib/date';
 import {ObjectArray} from '../views/Tag/VerticalSelect';
 import {createId} from '../lib/createId';
+import defaultRecords from 'data/records.json';
 
 export type RecordItem = {
   id: number
@@ -31,7 +32,12 @@ export const useRecords = () => {
   const [sections, setSections] = useState<ObjectArray>([]);
 
   useEffect(() => {
-    setRecords(JSON.parse(window.localStorage.getItem('records') || '[]'));
+    const rs = window.localStorage.getItem('records');
+    if (rs) {
+      setRecords(JSON.parse(rs));
+    } else {
+      setRecords(defaultRecords as RecordItem[]);
+    }
   }, []);// 组件挂载时执行
 
   useUpdate(() => {
