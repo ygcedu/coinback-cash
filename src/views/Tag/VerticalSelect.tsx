@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 const BarWrapper = styled.section`
   display: flex;
@@ -87,6 +87,7 @@ type Props = {
 const VerticalSelect: React.FC<Props> = (props) => {
   const options = props.map.map(item => item.key);
   const selected = props.value;
+  const scrollLeft = useRef(0);
 
   const container = useRef<HTMLUListElement>(null);
   const changeScrollDirection = (e: any) => {
@@ -96,17 +97,23 @@ const VerticalSelect: React.FC<Props> = (props) => {
     // e.preventDefault();
   };
 
+  useEffect(() => {
+    if (container.current) {
+      // props 变化导致页面重新渲染会导致滚动条位置重置
+      container.current.scrollLeft = scrollLeft.current;
+    }
+  }, [selected]);
+
   const Content = () => {
     return (
       <ul ref={container} onWheel={changeScrollDirection}>
         {options.map((c, index) =>
-          <li key={c} className={selected === c ? 'selected' : ''}
+          <li key={c} className={selected === c ? 'selected' : undefined}
               onClick={(e) => {
-                // fixme：pc 端鼠标点击后滚轮会跳转到头部
                 props.onChange(c);
                 // e.currentTarget.scrollIntoView({inline: 'nearest'});
-                // if (!container.current) return;
-                // container.current.scrollLeft = e.currentTarget.offsetLeft;
+                if (!container.current) return;
+                scrollLeft.current = container.current.scrollLeft;
                 // e.preventDefault();
                 // e.stopPropagation();
               }}>
