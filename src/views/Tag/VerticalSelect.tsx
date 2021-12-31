@@ -87,7 +87,7 @@ type Props = {
 const VerticalSelect: React.FC<Props> = (props) => {
   const options = props.map.map(item => item.key);
   const selected = props.value;
-  const scrollLeft = useRef(0);
+  const scrollLeft = useRef(99999);// 默认滚动到底部
 
   const container = useRef<HTMLUListElement>(null);
   const changeScrollDirection = (e: any) => {

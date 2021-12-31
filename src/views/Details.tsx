@@ -23,7 +23,7 @@ const MyLayout = styled(Layout)`
       scroll-snap-type: x mandatory;
       font-size: 16px;
       position: relative;
-      scroll-behavior: smooth;
+      //scroll-behavior: smooth;
 
       &::-webkit-scrollbar {
         display: none;
@@ -157,7 +157,11 @@ function Details() {
                        onTouchStart={(e) => {
                          container.current.forEach((item) => {
                            if (item && e.currentTarget !== item) {
-                             item.scrollLeft = 0;
+                             // item.scrollLeft = 0;
+                             item.scroll({
+                               left: 0,
+                               behavior: 'smooth'
+                             });
                            }
                          });
                        }}>
