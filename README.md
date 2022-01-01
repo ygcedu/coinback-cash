@@ -2,6 +2,8 @@
 
 一个用 React + typescript 写的仿鲨鱼记账应用，用于本人日常开销和理财收入的记录统计。   
 预览链接：http://u1s.top/coinback-cash
+备用链接：http://ygc_edu.gitee.io/coinback-cash
+![img.png](images/img.png)
 
 ## 技术栈
 

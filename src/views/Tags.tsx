@@ -32,6 +32,10 @@ const TagList = styled.ol`
       align-items: center; // 上下居中
     }
   }
+
+  .hidden {
+    opacity: 0;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -108,7 +112,7 @@ function Tags() {
                 <span className="oneLine">{tag.name}</span>
               </Center>
             </div>
-            <Icon name="drag" size={24}></Icon>
+            <Icon name="drag" size={24} className='hidden'></Icon>
           </li>
         )}
       </TagList>
